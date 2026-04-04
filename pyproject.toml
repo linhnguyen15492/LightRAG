@@ -26,6 +26,7 @@ dependencies = [
     "google-api-core>=2.0.0,<3.0.0",
     "google-genai>=1.0.0,<2.0.0",
     "json_repair",
+    "langchain-text-splitters>=0.3.11",
     "nano-vectordb",
     "neo4j>=6.0.2",
     "nest-asyncio>=1.6.0",
@@ -41,6 +42,7 @@ dependencies = [
     "setuptools",
     "tenacity",
     "tiktoken",
+    "unstructured>=0.18.32",
     "xlsxwriter>=3.1.0",
 ]
 
