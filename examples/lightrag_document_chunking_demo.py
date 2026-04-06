@@ -1,6 +1,5 @@
 import asyncio
 import os
-from typing import Any, TYPE_CHECKING
 
 from dotenv import load_dotenv
 
@@ -9,34 +8,10 @@ from lightrag.document_chunking import chunking_by_document
 from lightrag.lightrag import LightRAG
 from lightrag.llm.openai import gpt_4o_mini_complete, openai_embed
 
-if TYPE_CHECKING:
-    from lightrag.utils import Tokenizer
-
 load_dotenv(dotenv_path=".env", override=False)
 
 WORKING_DIR = "./rag_storage_document_chunking"
 INPUT_FILE = "./book.txt"
-
-
-def document_based_chunking_adapter(
-    tokenizer: "Tokenizer",
-    content: str,
-    split_by_character: str | None,
-    split_by_character_only: bool,
-    chunk_overlap_token_size: int,
-    chunk_token_size: int,
-) -> list[dict[str, Any]]:
-    """Adapter for LightRAG chunking_func signature."""
-    _ = split_by_character
-    _ = split_by_character_only
-    return chunking_by_document(
-        tokenizer=tokenizer,
-        content=content,
-        chunk_overlap_token_size=chunk_overlap_token_size,
-        chunk_token_size=chunk_token_size,
-        use_markdown_structure=True,
-        strict_token_limit=False,
-    )
 
 
 async def initialize_rag() -> LightRAG:
@@ -44,7 +19,7 @@ async def initialize_rag() -> LightRAG:
         working_dir=WORKING_DIR,
         embedding_func=openai_embed,
         llm_model_func=gpt_4o_mini_complete,
-        chunking_func=document_based_chunking_adapter,
+        chunking_func=chunking_by_document,
     )
     await rag.initialize_storages()
     return rag
