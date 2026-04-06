@@ -1,0 +1,453 @@
+{
+  "HKUDS<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-b82a84a0db12fa70b3252294cbb07cfa"
+    ],
+    "count": 1,
+    "create_time": 1775461429,
+    "update_time": 1775461429,
+    "_id": "HKUDS<SEP>LightRAG"
+  },
+  "Large Language Models<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-b82a84a0db12fa70b3252294cbb07cfa"
+    ],
+    "count": 1,
+    "create_time": 1775461430,
+    "update_time": 1775461430,
+    "_id": "Large Language Models<SEP>LightRAG"
+  },
+  "Document-Grounded Responses<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-b82a84a0db12fa70b3252294cbb07cfa"
+    ],
+    "count": 1,
+    "create_time": 1775461430,
+    "update_time": 1775461430,
+    "_id": "Document-Grounded Responses<SEP>LightRAG"
+  },
+  "External Knowledge Retrieval<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-b82a84a0db12fa70b3252294cbb07cfa"
+    ],
+    "count": 1,
+    "create_time": 1775461430,
+    "update_time": 1775461430,
+    "_id": "External Knowledge Retrieval<SEP>LightRAG"
+  },
+  "LightRAG<SEP>Limitations of Large Language Models": {
+    "chunk_ids": [
+      "chunk-b82a84a0db12fa70b3252294cbb07cfa"
+    ],
+    "count": 1,
+    "create_time": 1775461431,
+    "update_time": 1775461431,
+    "_id": "LightRAG<SEP>Limitations of Large Language Models"
+  },
+  "Hallucination Problem<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-b82a84a0db12fa70b3252294cbb07cfa"
+    ],
+    "count": 1,
+    "create_time": 1775461431,
+    "update_time": 1775461431,
+    "_id": "Hallucination Problem<SEP>LightRAG"
+  },
+  "RAG System<SEP>Retrieval System": {
+    "chunk_ids": [
+      "chunk-2a891514222c7fefbcc45259ee3bb8c2"
+    ],
+    "count": 1,
+    "create_time": 1775461448,
+    "update_time": 1775461448,
+    "_id": "RAG System<SEP>Retrieval System"
+  },
+  "Retrieval System<SEP>Vector Databases": {
+    "chunk_ids": [
+      "chunk-2a891514222c7fefbcc45259ee3bb8c2"
+    ],
+    "count": 1,
+    "create_time": 1775461448,
+    "update_time": 1775461448,
+    "_id": "Retrieval System<SEP>Vector Databases"
+  },
+  "Embedding Model<SEP>RAG System": {
+    "chunk_ids": [
+      "chunk-2a891514222c7fefbcc45259ee3bb8c2"
+    ],
+    "count": 1,
+    "create_time": 1775461448,
+    "update_time": 1775461448,
+    "_id": "Embedding Model<SEP>RAG System"
+  },
+  "Retrieval System<SEP>Search Engines": {
+    "chunk_ids": [
+      "chunk-2a891514222c7fefbcc45259ee3bb8c2"
+    ],
+    "count": 1,
+    "create_time": 1775461449,
+    "update_time": 1775461449,
+    "_id": "Retrieval System<SEP>Search Engines"
+  },
+  "Large Language Model<SEP>RAG System": {
+    "chunk_ids": [
+      "chunk-2a891514222c7fefbcc45259ee3bb8c2"
+    ],
+    "count": 1,
+    "create_time": 1775461449,
+    "update_time": 1775461449,
+    "_id": "Large Language Model<SEP>RAG System"
+  },
+  "Embedding Model<SEP>Retrieval System": {
+    "chunk_ids": [
+      "chunk-2a891514222c7fefbcc45259ee3bb8c2"
+    ],
+    "count": 1,
+    "create_time": 1775461449,
+    "update_time": 1775461449,
+    "_id": "Embedding Model<SEP>Retrieval System"
+  },
+  "Embedding Model<SEP>Large Language Model": {
+    "chunk_ids": [
+      "chunk-2a891514222c7fefbcc45259ee3bb8c2"
+    ],
+    "count": 1,
+    "create_time": 1775461450,
+    "update_time": 1775461450,
+    "_id": "Embedding Model<SEP>Large Language Model"
+  },
+  "LightRAG<SEP>Traditional RAG": {
+    "chunk_ids": [
+      "chunk-3ab88a7ea07b155c41c81dc1fa3ffb65"
+    ],
+    "count": 1,
+    "create_time": 1775461467,
+    "update_time": 1775461467,
+    "_id": "LightRAG<SEP>Traditional RAG"
+  },
+  "LightRAG<SEP>Vector Database": {
+    "chunk_ids": [
+      "chunk-3ab88a7ea07b155c41c81dc1fa3ffb65"
+    ],
+    "count": 1,
+    "create_time": 1775461467,
+    "update_time": 1775461467,
+    "_id": "LightRAG<SEP>Vector Database"
+  },
+  "API Design<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-3ab88a7ea07b155c41c81dc1fa3ffb65"
+    ],
+    "count": 1,
+    "create_time": 1775461468,
+    "update_time": 1775461468,
+    "_id": "API Design<SEP>LightRAG"
+  },
+  "LightRAG<SEP>Prompting Strategies": {
+    "chunk_ids": [
+      "chunk-3ab88a7ea07b155c41c81dc1fa3ffb65"
+    ],
+    "count": 1,
+    "create_time": 1775461468,
+    "update_time": 1775461468,
+    "_id": "LightRAG<SEP>Prompting Strategies"
+  },
+  "LightRAG<SEP>Retrieval Performance": {
+    "chunk_ids": [
+      "chunk-3ab88a7ea07b155c41c81dc1fa3ffb65"
+    ],
+    "count": 1,
+    "create_time": 1775461468,
+    "update_time": 1775461468,
+    "_id": "LightRAG<SEP>Retrieval Performance"
+  },
+  "ChromaDB<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-a7534773ede26ba695c6f58ad56a167d"
+    ],
+    "count": 1,
+    "create_time": 1775461488,
+    "update_time": 1775461488,
+    "_id": "ChromaDB<SEP>LightRAG"
+  },
+  "LightRAG<SEP>Neo4j": {
+    "chunk_ids": [
+      "chunk-a7534773ede26ba695c6f58ad56a167d"
+    ],
+    "count": 1,
+    "create_time": 1775461488,
+    "update_time": 1775461488,
+    "_id": "LightRAG<SEP>Neo4j"
+  },
+  "LightRAG<SEP>Milvus": {
+    "chunk_ids": [
+      "chunk-a7534773ede26ba695c6f58ad56a167d"
+    ],
+    "count": 1,
+    "create_time": 1775461489,
+    "update_time": 1775461489,
+    "_id": "LightRAG<SEP>Milvus"
+  },
+  "LightRAG<SEP>Qdrant": {
+    "chunk_ids": [
+      "chunk-a7534773ede26ba695c6f58ad56a167d"
+    ],
+    "count": 1,
+    "create_time": 1775461489,
+    "update_time": 1775461489,
+    "_id": "LightRAG<SEP>Qdrant"
+  },
+  "Unified Data Management<SEP>Vector Search Capabilities": {
+    "chunk_ids": [
+      "chunk-c4a9c90e59381a08a8f6133a6bedd53d"
+    ],
+    "count": 1,
+    "create_time": 1775461489,
+    "update_time": 1775461489,
+    "_id": "Unified Data Management<SEP>Vector Search Capabilities"
+  },
+  "LightRAG<SEP>MongoDB Atlas Vector Search": {
+    "chunk_ids": [
+      "chunk-a7534773ede26ba695c6f58ad56a167d"
+    ],
+    "count": 1,
+    "create_time": 1775461490,
+    "update_time": 1775461490,
+    "_id": "LightRAG<SEP>MongoDB Atlas Vector Search"
+  },
+  "LightRAG<SEP>Redis": {
+    "chunk_ids": [
+      "chunk-a7534773ede26ba695c6f58ad56a167d",
+      "chunk-c4a9c90e59381a08a8f6133a6bedd53d"
+    ],
+    "count": 2,
+    "create_time": 1775461490,
+    "update_time": 1775461490,
+    "_id": "LightRAG<SEP>Redis"
+  },
+  "Built-in Nano-VectorDB<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-a7534773ede26ba695c6f58ad56a167d"
+    ],
+    "count": 1,
+    "create_time": 1775461491,
+    "update_time": 1775461491,
+    "_id": "Built-in Nano-VectorDB<SEP>LightRAG"
+  },
+  "LightRAG<SEP>Nano-VectorDB": {
+    "chunk_ids": [
+      "chunk-c4a9c90e59381a08a8f6133a6bedd53d"
+    ],
+    "count": 1,
+    "create_time": 1775461491,
+    "update_time": 1775461491,
+    "_id": "LightRAG<SEP>Nano-VectorDB"
+  },
+  "LightRAG<SEP>RAG Applications": {
+    "chunk_ids": [
+      "chunk-c4a9c90e59381a08a8f6133a6bedd53d"
+    ],
+    "count": 1,
+    "create_time": 1775461492,
+    "update_time": 1775461492,
+    "_id": "LightRAG<SEP>RAG Applications"
+  },
+  "Database Selection Benefits<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-c4a9c90e59381a08a8f6133a6bedd53d"
+    ],
+    "count": 1,
+    "create_time": 1775461492,
+    "update_time": 1775461492,
+    "_id": "Database Selection Benefits<SEP>LightRAG"
+  },
+  "Docker<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-678dd7910ca01e209fe807783a33d293"
+    ],
+    "count": 1,
+    "create_time": 1775461509,
+    "update_time": 1775461509,
+    "_id": "Docker<SEP>LightRAG"
+  },
+  "Faithfulness Metric<SEP>RAG System Quality": {
+    "chunk_ids": [
+      "chunk-0a6a2a571099c70c7e20dbd90da662e2"
+    ],
+    "count": 1,
+    "create_time": 1775461509,
+    "update_time": 1775461509,
+    "_id": "Faithfulness Metric<SEP>RAG System Quality"
+  },
+  "FastAPI<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-678dd7910ca01e209fe807783a33d293"
+    ],
+    "count": 1,
+    "create_time": 1775461510,
+    "update_time": 1775461510,
+    "_id": "FastAPI<SEP>LightRAG"
+  },
+  "Answer Relevance Metric<SEP>RAG System Quality": {
+    "chunk_ids": [
+      "chunk-0a6a2a571099c70c7e20dbd90da662e2"
+    ],
+    "count": 1,
+    "create_time": 1775461510,
+    "update_time": 1775461510,
+    "_id": "Answer Relevance Metric<SEP>RAG System Quality"
+  },
+  "LightRAG<SEP>Python": {
+    "chunk_ids": [
+      "chunk-678dd7910ca01e209fe807783a33d293"
+    ],
+    "count": 1,
+    "create_time": 1775461511,
+    "update_time": 1775461511,
+    "_id": "LightRAG<SEP>Python"
+  },
+  "Context Recall Metric<SEP>RAG System Quality": {
+    "chunk_ids": [
+      "chunk-0a6a2a571099c70c7e20dbd90da662e2"
+    ],
+    "count": 1,
+    "create_time": 1775461511,
+    "update_time": 1775461511,
+    "_id": "Context Recall Metric<SEP>RAG System Quality"
+  },
+  "Context Precision Metric<SEP>RAG System Quality": {
+    "chunk_ids": [
+      "chunk-0a6a2a571099c70c7e20dbd90da662e2"
+    ],
+    "count": 1,
+    "create_time": 1775461511,
+    "update_time": 1775461511,
+    "_id": "Context Precision Metric<SEP>RAG System Quality"
+  },
+  "LightRAG<SEP>REST API": {
+    "chunk_ids": [
+      "chunk-678dd7910ca01e209fe807783a33d293"
+    ],
+    "count": 1,
+    "create_time": 1775461511,
+    "update_time": 1775461511,
+    "_id": "LightRAG<SEP>REST API"
+  },
+  "LLM Providers<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-678dd7910ca01e209fe807783a33d293"
+    ],
+    "count": 1,
+    "create_time": 1775461512,
+    "update_time": 1775461512,
+    "_id": "LLM Providers<SEP>LightRAG"
+  },
+  "Docker Container Deployment<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-0a6a2a571099c70c7e20dbd90da662e2"
+    ],
+    "count": 1,
+    "create_time": 1775461512,
+    "update_time": 1775461512,
+    "_id": "Docker Container Deployment<SEP>LightRAG"
+  },
+  "LightRAG<SEP>REST API Server with FastAPI": {
+    "chunk_ids": [
+      "chunk-0a6a2a571099c70c7e20dbd90da662e2"
+    ],
+    "count": 1,
+    "create_time": 1775461513,
+    "update_time": 1775461513,
+    "_id": "LightRAG<SEP>REST API Server with FastAPI"
+  },
+  "LightRAG<SEP>Sample Documents": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461533,
+    "update_time": 1775461533,
+    "_id": "LightRAG<SEP>Sample Documents"
+  },
+  "Evaluation<SEP>Python": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461533,
+    "update_time": 1775461533,
+    "_id": "Evaluation<SEP>Python"
+  },
+  "02_rag_architecture.md<SEP>RAG System": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461533,
+    "update_time": 1775461533,
+    "_id": "02_rag_architecture.md<SEP>RAG System"
+  },
+  "LightRAG<SEP>RAG System": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461533,
+    "update_time": 1775461533,
+    "_id": "LightRAG<SEP>RAG System"
+  },
+  "Evaluation<SEP>RAGAS Score": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461533,
+    "update_time": 1775461533,
+    "_id": "Evaluation<SEP>RAGAS Score"
+  },
+  "Documentation Files<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461534,
+    "update_time": 1775461534,
+    "_id": "Documentation Files<SEP>LightRAG"
+  },
+  "01_lightrag_overview.md<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461534,
+    "update_time": 1775461534,
+    "_id": "01_lightrag_overview.md<SEP>LightRAG"
+  },
+  "03_lightrag_improvements.md<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461535,
+    "update_time": 1775461535,
+    "_id": "03_lightrag_improvements.md<SEP>LightRAG"
+  },
+  "04_supported_databases.md<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461535,
+    "update_time": 1775461535,
+    "_id": "04_supported_databases.md<SEP>LightRAG"
+  },
+  "05_evaluation_and_deployment.md<SEP>LightRAG": {
+    "chunk_ids": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "count": 1,
+    "create_time": 1775461536,
+    "update_time": 1775461536,
+    "_id": "05_evaluation_and_deployment.md<SEP>LightRAG"
+  }
+}
