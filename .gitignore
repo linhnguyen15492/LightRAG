@@ -13,6 +13,10 @@ venv/
 
 # Enviroment Variable Files
 .env
+.env.backup.*
+
+# Generated Docker Compose files (output of setup wizard)
+docker-compose.*.yml
 
 # Build / Distribution
 dist/
@@ -62,7 +66,6 @@ ignore_this.txt
 # Project-specific files
 /dickens*/
 /book.txt
-download_models_hf.py
 
 # Frontend build output (built during PyPI release)
 /lightrag/api/webui/
@@ -77,3 +80,6 @@ memory-bank
 
 # Claude Code
 CLAUDE.md
+
+# Google Jules
+.jules/

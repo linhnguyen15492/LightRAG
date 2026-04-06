@@ -45,6 +45,7 @@ from lightrag.constants import (
 
 # Precompile regex pattern for JSON sanitization (module-level, compiled once)
 _SURROGATE_PATTERN = re.compile(r"[\uD800-\uDFFF\uFFFE\uFFFF]")
+_CONTROL_CHAR_PATTERN_ALL = re.compile(r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]")
 
 
 class SafeStreamHandler(logging.StreamHandler):
@@ -235,6 +236,9 @@ if TYPE_CHECKING:
 load_dotenv(dotenv_path=".env", override=False)
 
 VERBOSE_DEBUG = os.getenv("VERBOSE", "false").lower() == "true"
+PERFORMANCE_TIMING_LOGS = (
+    os.getenv("LIGHTRAG_PERFORMANCE_TIMING_LOGS", "false").lower() == "true"
+)
 
 
 def verbose_debug(msg: str, *args, **kwargs):
@@ -268,6 +272,12 @@ def set_verbose_debug(enabled: bool):
     """Enable or disable verbose debug output"""
     global VERBOSE_DEBUG
     VERBOSE_DEBUG = enabled
+
+
+def performance_timing_log(msg: str, *args, **kwargs):
+    """Emit targeted performance timing logs only when explicitly enabled."""
+    if PERFORMANCE_TIMING_LOGS:
+        logger.info(msg, *args, **kwargs)
 
 
 statistic_data = {"llm_call": 0, "llm_cache": 0, "embed_call": 0}
@@ -1495,6 +1505,16 @@ def exists_func(obj, func_name: str) -> bool:
         return False
 
 
+async def _cooperative_yield(iteration: int, every: int = 64) -> None:
+    """Periodically yield control to the event loop during CPU-heavy async loops.
+
+    Call inside long synchronous-style loops to prevent event loop starvation
+    in single-worker deployments. Yields every `every` iterations.
+    """
+    if iteration > 0 and iteration % every == 0:
+        await asyncio.sleep(0)
+
+
 def always_get_an_event_loop() -> asyncio.AbstractEventLoop:
     """
     Ensure that there is always an event loop available.
@@ -2238,8 +2258,6 @@ def normalize_extracted_info(name: str, remove_inner_quotes=False) -> str:
         return all(c.isdigit() or c == "." for c in text) and "." in text
 
     if len(name) < 6 and should_filter_by_dots(name):
-        # Filter out mixed numeric and dot content with length < 6
-        return ""
         # Filter out mixed numeric and dot content with length < 6, requiring at least one dot
         return ""
 
@@ -2263,75 +2281,28 @@ def sanitize_text_for_encoding(text: str, replacement_char: str = "") -> str:
 
     Returns:
         Sanitized text that can be safely encoded as UTF-8
-
-    Raises:
-        ValueError: When text contains uncleanable encoding issues that cannot be safely processed
     """
     if not text:
         return text
 
-    try:
-        # First, strip whitespace
-        text = text.strip()
+    # First, strip whitespace
+    text = text.strip()
 
-        # Early return if text is empty after basic cleaning
-        if not text:
-            return text
+    # Early return if text is empty after basic cleaning
+    if not text:
+        return text
 
-        # Try to encode/decode to catch any encoding issues early
-        text.encode("utf-8")
+    # 1. html.unescape first to catch entities that might become surrogates or control chars
+    text = html.unescape(text)
 
-        # Remove or replace surrogate characters (U+D800 to U+DFFF)
-        # These are the main cause of the encoding error
-        sanitized = ""
-        for char in text:
-            code_point = ord(char)
-            # Check for surrogate characters
-            if 0xD800 <= code_point <= 0xDFFF:
-                # Replace surrogate with replacement character
-                sanitized += replacement_char
-                continue
-            # Check for other problematic characters
-            elif code_point == 0xFFFE or code_point == 0xFFFF:
-                # These are non-characters in Unicode
-                sanitized += replacement_char
-                continue
-            else:
-                sanitized += char
+    # 2. Use pre-compiled regex to clean surrogates and non-characters in one pass
+    # This replaces the slow manual loop and initial .encode() check
+    text = _SURROGATE_PATTERN.sub(replacement_char, text)
 
-        # Additional cleanup: remove null bytes and other control characters that might cause issues
-        # (but preserve common whitespace like \t, \n, \r)
-        sanitized = re.sub(
-            r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]", replacement_char, sanitized
-        )
+    # 3. Remove control characters but preserve common whitespace (\t, \n, \r)
+    text = _CONTROL_CHAR_PATTERN_ALL.sub(replacement_char, text)
 
-        # Test final encoding to ensure it's safe
-        sanitized.encode("utf-8")
-
-        # Unescape HTML escapes
-        sanitized = html.unescape(sanitized)
-
-        # Remove control characters but preserve common whitespace (\t, \n, \r)
-        sanitized = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]", "", sanitized)
-
-        return sanitized.strip()
-
-    except UnicodeEncodeError as e:
-        # Critical change: Don't return placeholder, raise exception for caller to handle
-        error_msg = f"Text contains uncleanable UTF-8 encoding issues: {str(e)[:100]}"
-        logger.error(f"Text sanitization failed: {error_msg}")
-        raise ValueError(error_msg) from e
-
-    except Exception as e:
-        logger.error(f"Text sanitization: Unexpected error: {str(e)}")
-        # For other exceptions, if no encoding issues detected, return original text
-        try:
-            text.encode("utf-8")
-            return text
-        except UnicodeEncodeError:
-            raise ValueError(
-                f"Text sanitization failed with unexpected error: {str(e)}"
-            ) from e
+    return text.strip()
 
 
 def check_storage_env_vars(storage_name: str) -> None:
