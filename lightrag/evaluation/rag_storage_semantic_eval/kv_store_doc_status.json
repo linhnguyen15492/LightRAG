@@ -1,0 +1,18 @@
+{
+  "doc-43885d0b4bf9beb71d6b0d9910c35607": {
+    "status": "processing",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-b82a84a0db12fa70b3252294cbb07cfa"
+    ],
+    "content_summary": "# LightRAG Framework Overview\n\n## What is LightRAG?\n\n**LightRAG** is a Simple and Fast Retrieval-Augmented Generation framework. LightRAG was developed by HKUDS (Hong Kong University Data Science Lab). The framework provides developers with tools to ...",
+    "content_length": 1408,
+    "created_at": "2026-04-06T07:27:27.551807+00:00",
+    "updated_at": "2026-04-06T07:27:27.599297+00:00",
+    "file_path": "/home/linhnnh/LightRAG/lightrag/evaluation/sample_documents/01_lightrag_overview.md",
+    "track_id": "insert_20260406_072727_58a8e008",
+    "metadata": {
+      "processing_start_time": 1775460447
+    }
+  }
+}

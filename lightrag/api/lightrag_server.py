@@ -35,6 +35,7 @@ from .config import (
 )
 from lightrag.utils import get_env_value
 from lightrag import LightRAG, __version__ as core_version
+from lightrag.semantic_chunking import chunking_by_semantic_token_size
 from lightrag.api import __api_version__
 from lightrag.types import GPTKeywordExtractionFormat
 from lightrag.utils import EmbeddingFunc
@@ -1085,6 +1086,7 @@ def create_app(args):
             rerank_model_func=rerank_model_func,
             max_parallel_insert=args.max_parallel_insert,
             max_graph_nodes=args.max_graph_nodes,
+            chunking_func=chunking_by_semantic_token_size,
             addon_params={
                 "language": args.summary_language,
                 "entity_types": args.entity_types,

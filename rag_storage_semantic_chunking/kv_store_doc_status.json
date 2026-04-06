@@ -1,0 +1,106 @@
+{
+  "doc-43885d0b4bf9beb71d6b0d9910c35607": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-b82a84a0db12fa70b3252294cbb07cfa"
+    ],
+    "content_summary": "# LightRAG Framework Overview\n\n## What is LightRAG?\n\n**LightRAG** is a Simple and Fast Retrieval-Augmented Generation framework. LightRAG was developed by HKUDS (Hong Kong University Data Science Lab). The framework provides developers with tools to ...",
+    "content_length": 1408,
+    "created_at": "2026-04-06T07:43:33.968565+00:00",
+    "updated_at": "2026-04-06T07:43:52.312060+00:00",
+    "file_path": "lightrag/evaluation/sample_documents/01_lightrag_overview.md",
+    "track_id": "insert_20260406_074333_54af0c15",
+    "metadata": {
+      "processing_start_time": 1775461413,
+      "processing_end_time": 1775461432
+    }
+  },
+  "doc-cde97f29f1d045af4ace8711a4b40dc2": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-2a891514222c7fefbcc45259ee3bb8c2"
+    ],
+    "content_summary": "# RAG System Architecture\n\n## Main Components of RAG Systems\n\nA RAG system consists of three main components that work together to provide intelligent responses.\n\n### Component 1: Retrieval System\n\nThe retrieval system is the first component of a RAG...",
+    "content_length": 1496,
+    "created_at": "2026-04-06T07:43:52.373908+00:00",
+    "updated_at": "2026-04-06T07:44:10.563744+00:00",
+    "file_path": "lightrag/evaluation/sample_documents/02_rag_architecture.md",
+    "track_id": "insert_20260406_074352_aa552667",
+    "metadata": {
+      "processing_start_time": 1775461432,
+      "processing_end_time": 1775461450
+    }
+  },
+  "doc-33cf6cfe009c4582f5c7822bfc2d9140": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-3ab88a7ea07b155c41c81dc1fa3ffb65"
+    ],
+    "content_summary": "# LightRAG Improvements Over Traditional RAG\n\n## Key Improvements\n\nLightRAG improves upon traditional RAG approaches in several significant ways.\n\n### Simpler API Design\n\nLightRAG offers a simpler API compared to traditional RAG frameworks. The frame...",
+    "content_length": 1579,
+    "created_at": "2026-04-06T07:44:10.652692+00:00",
+    "updated_at": "2026-04-06T07:44:29.364785+00:00",
+    "file_path": "lightrag/evaluation/sample_documents/03_lightrag_improvements.md",
+    "track_id": "insert_20260406_074410_a32a37d1",
+    "metadata": {
+      "processing_start_time": 1775461450,
+      "processing_end_time": 1775461469
+    }
+  },
+  "doc-d205d8cef950c84f5aa969dd46bf8288": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-a7534773ede26ba695c6f58ad56a167d",
+      "chunk-c4a9c90e59381a08a8f6133a6bedd53d"
+    ],
+    "content_summary": "# LightRAG Vector Database Support\n\n## Supported Vector Databases\n\nLightRAG supports multiple vector databases for flexible deployment options.\n\n### ChromaDB\n\nChromaDB is a vector database supported by LightRAG. ChromaDB provides simple deployment fo...",
+    "content_length": 1915,
+    "created_at": "2026-04-06T07:44:29.393744+00:00",
+    "updated_at": "2026-04-06T07:44:52.819534+00:00",
+    "file_path": "lightrag/evaluation/sample_documents/04_supported_databases.md",
+    "track_id": "insert_20260406_074429_ca067c6b",
+    "metadata": {
+      "processing_start_time": 1775461469,
+      "processing_end_time": 1775461492
+    }
+  },
+  "doc-8e8c9f2cab667198ee3294275f9f35cb": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-0a6a2a571099c70c7e20dbd90da662e2",
+      "chunk-678dd7910ca01e209fe807783a33d293"
+    ],
+    "content_summary": "# RAG Evaluation Metrics and Deployment\n\n## Key RAG Evaluation Metrics\n\nRAG system quality is measured through four key metrics.\n\n### Faithfulness Metric\n\nFaithfulness measures whether answers are factually grounded in retrieved context. The faithful...",
+    "content_length": 2458,
+    "created_at": "2026-04-06T07:44:52.876413+00:00",
+    "updated_at": "2026-04-06T07:45:13.434679+00:00",
+    "file_path": "lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md",
+    "track_id": "insert_20260406_074452_ba59686b",
+    "metadata": {
+      "processing_start_time": 1775461492,
+      "processing_end_time": 1775461513
+    }
+  },
+  "doc-f0eefca9cb82d43daaa321f121acc4b7": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-42de391f02d01ca65205e069a3947cfc"
+    ],
+    "content_summary": "# Sample Documents for Evaluation\n\nThese markdown files correspond to test questions in `../sample_dataset.json`.\n\n## Usage\n\n1. **Index documents** into LightRAG (via WebUI, API, or Python)\n2. **Run evaluation**: `python lightrag/evaluation/eval_rag_...",
+    "content_length": 812,
+    "created_at": "2026-04-06T07:45:13.514578+00:00",
+    "updated_at": "2026-04-06T07:45:37.412274+00:00",
+    "file_path": "lightrag/evaluation/sample_documents/README.md",
+    "track_id": "insert_20260406_074513_24f0f7bf",
+    "metadata": {
+      "processing_start_time": 1775461513,
+      "processing_end_time": 1775461537
+    }
+  }
+}
