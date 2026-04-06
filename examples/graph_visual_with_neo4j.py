@@ -2,6 +2,9 @@ import os
 import json
 import xml.etree.ElementTree as ET
 from neo4j import GraphDatabase
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Constants
 WORKING_DIR = "./dickens"
@@ -9,9 +12,9 @@ BATCH_SIZE_NODES = 500
 BATCH_SIZE_EDGES = 100
 
 # Neo4j connection credentials
-NEO4J_URI = "bolt://localhost:7687"
-NEO4J_USERNAME = "neo4j"
-NEO4J_PASSWORD = "your_password"
+NEO4J_URI = os.getenv("NEO4J_URI")
+NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 
 
 def xml_to_json(xml_file):
@@ -31,15 +34,21 @@ def xml_to_json(xml_file):
         for node in root.findall(".//node", namespace):
             node_data = {
                 "id": node.get("id").strip('"'),
-                "entity_type": node.find("./data[@key='d1']", namespace).text.strip('"')
-                if node.find("./data[@key='d1']", namespace) is not None
-                else "",
-                "description": node.find("./data[@key='d2']", namespace).text
-                if node.find("./data[@key='d2']", namespace) is not None
-                else "",
-                "source_id": node.find("./data[@key='d3']", namespace).text
-                if node.find("./data[@key='d3']", namespace) is not None
-                else "",
+                "entity_type": (
+                    node.find("./data[@key='d1']", namespace).text.strip('"')
+                    if node.find("./data[@key='d1']", namespace) is not None
+                    else ""
+                ),
+                "description": (
+                    node.find("./data[@key='d2']", namespace).text
+                    if node.find("./data[@key='d2']", namespace) is not None
+                    else ""
+                ),
+                "source_id": (
+                    node.find("./data[@key='d3']", namespace).text
+                    if node.find("./data[@key='d3']", namespace) is not None
+                    else ""
+                ),
             }
             data["nodes"].append(node_data)
 
@@ -47,18 +56,26 @@ def xml_to_json(xml_file):
             edge_data = {
                 "source": edge.get("source").strip('"'),
                 "target": edge.get("target").strip('"'),
-                "weight": float(edge.find("./data[@key='d5']", namespace).text)
-                if edge.find("./data[@key='d5']", namespace) is not None
-                else 0.0,
-                "description": edge.find("./data[@key='d6']", namespace).text
-                if edge.find("./data[@key='d6']", namespace) is not None
-                else "",
-                "keywords": edge.find("./data[@key='d9']", namespace).text
-                if edge.find("./data[@key='d9']", namespace) is not None
-                else "",
-                "source_id": edge.find("./data[@key='d8']", namespace).text
-                if edge.find("./data[@key='d8']", namespace) is not None
-                else "",
+                "weight": (
+                    float(edge.find("./data[@key='d5']", namespace).text)
+                    if edge.find("./data[@key='d5']", namespace) is not None
+                    else 0.0
+                ),
+                "description": (
+                    edge.find("./data[@key='d6']", namespace).text
+                    if edge.find("./data[@key='d6']", namespace) is not None
+                    else ""
+                ),
+                "keywords": (
+                    edge.find("./data[@key='d9']", namespace).text
+                    if edge.find("./data[@key='d9']", namespace) is not None
+                    else ""
+                ),
+                "source_id": (
+                    edge.find("./data[@key='d8']", namespace).text
+                    if edge.find("./data[@key='d8']", namespace) is not None
+                    else ""
+                ),
             }
             data["edges"].append(edge_data)
 
