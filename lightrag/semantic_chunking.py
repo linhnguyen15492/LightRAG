@@ -185,7 +185,7 @@ def chunking_by_semantic_token_size(
 
     # Match legacy behavior: strict split mode raises if any split piece is oversized.
     if split_by_character and split_by_character_only:
-        for chunk in raw_chunks:
+        for index, chunk in enumerate(raw_chunks):
             _tokens = tokenizer.encode(chunk)
             if len(_tokens) > chunk_token_size:
                 logger.warning(
@@ -198,6 +198,14 @@ def chunking_by_semantic_token_size(
                     chunk_token_limit=chunk_token_size,
                     chunk_preview=chunk[:120],
                 )
+            results.append(
+                {
+                    "tokens": len(_tokens),
+                    "content": chunk.strip(),
+                    "chunk_order_index": index,
+                }
+            )
+        return results
 
     embeddings = _resolve_langchain_embeddings(langchain_embeddings)
     if embeddings is None:
