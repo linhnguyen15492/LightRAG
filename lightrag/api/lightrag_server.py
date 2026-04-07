@@ -1087,8 +1087,8 @@ def create_app(args):
             rerank_model_func=rerank_model_func,
             max_parallel_insert=args.max_parallel_insert,
             max_graph_nodes=args.max_graph_nodes,
-            # chunking_func=chunking_by_semantic_token_size,
-            chunking_func=chunking_by_document,
+            chunking_func=chunking_by_semantic_token_size,
+            # chunking_func=chunking_by_document,
             addon_params={
                 "language": args.summary_language,
                 "entity_types": args.entity_types,
