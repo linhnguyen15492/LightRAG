@@ -860,7 +860,7 @@ export const getAuthStatus = async (): Promise<AuthStatusResponse> => {
     });
 
     // Check if response is HTML (which indicates a redirect or wrong endpoint)
-    const contentType = response.headers['content-type'] || '';
+    const contentType = String(response.headers['content-type'] ?? '');
     if (contentType.includes('text/html')) {
       console.warn('Received HTML response instead of JSON for auth-status endpoint');
       return {
@@ -1040,10 +1040,10 @@ const releasePaginatedDocumentSubscriber = (
 const subscribeToPaginatedDocumentsRequest = (
   request: DocumentsRequest
 ): {
-    requestKey: string
-    requestEntry: InFlightPaginatedDocumentRequest
-    release: (abortIfLastSubscriber: boolean) => void
-  } => {
+  requestKey: string
+  requestEntry: InFlightPaginatedDocumentRequest
+  release: (abortIfLastSubscriber: boolean) => void
+} => {
   const requestKey = getPaginatedDocumentsRequestKey(request)
   let requestEntry = inFlightPaginatedDocumentRequests.get(requestKey)
 
