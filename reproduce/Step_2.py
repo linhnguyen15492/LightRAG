@@ -1,12 +1,20 @@
 import json
 from openai import OpenAI
 from transformers import GPT2Tokenizer
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("OPENAI_API_KEY environment variable is not set.")
 
 
 def openai_complete_if_cache(
     model="gpt-4o", prompt=None, system_prompt=None, history_messages=[], **kwargs
 ) -> str:
-    openai_client = OpenAI()
+    openai_client = OpenAI(api_key=api_key)
 
     messages = []
     if system_prompt:
@@ -36,9 +44,13 @@ def get_summary(context, tot_tokens=2000):
     return summary
 
 
-clses = ["agriculture"]
+clses = ["mix"]
 for cls in clses:
-    with open(f"../datasets/unique_contexts/{cls}_unique_contexts.json", mode="r") as f:
+    with open(
+        f"./datasets/unique_contexts/{cls}_unique_contexts.json",
+        mode="r",
+        encoding="utf-8",
+    ) as f:
         unique_contexts = json.load(f)
 
     summaries = [get_summary(context) for context in unique_contexts]
@@ -69,10 +81,10 @@ for cls in clses:
         ...
     """
 
-    result = openai_complete_if_cache(model="gpt-4o", prompt=prompt)
+    result = openai_complete_if_cache(model="gpt-4o-mini", prompt=prompt)
 
-    file_path = f"../datasets/questions/{cls}_questions.txt"
-    with open(file_path, "w") as file:
+    file_path = f"./datasets/questions/{cls}_questions.txt"
+    with open(file_path, "w", encoding="utf-8") as file:
         file.write(result)
 
     print(f"{cls}_questions written to {file_path}")

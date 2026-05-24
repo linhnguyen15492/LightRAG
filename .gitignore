@@ -91,3 +91,8 @@ CLAUDE.md
 
 # native_parser/docx CLI output (audit JSONL + image dir)
 /parse_output/
+
+reproduce/datasets
+datasets/
+
+mix/

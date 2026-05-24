@@ -28,6 +28,7 @@ dependencies = [
     "google-genai>=1.0.0,<3.0.0",
     "json_repair",
     "langchain-experimental>=0.4.1",
+    "langchain-openai>=1.0.2",
     "langchain-text-splitters>=0.3.11",
     "nano-vectordb",
     "neo4j>=6.0.2",
@@ -45,6 +46,8 @@ dependencies = [
     "setuptools",
     "tenacity",
     "tiktoken",
+    "tqdm>=4.67.1",
+    "transformers>=4.57.1",
     "unstructured>=0.18.32",
     "xlsxwriter>=3.1.0",
 ]
