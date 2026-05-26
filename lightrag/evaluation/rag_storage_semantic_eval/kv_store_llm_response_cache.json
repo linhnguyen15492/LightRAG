@@ -1,0 +1,122 @@
+{
+  "mix:keywords:87464899e8ce3d25002d507a011f7689": {
+    "return": "{\"high_level_keywords\": [\"LightRAG\", \"Hallucination problem\", \"Large language models\"], \"low_level_keywords\": [\"Artificial intelligence\", \"Natural language processing\", \"Model accuracy\", \"Data handling\", \"Contextual understanding\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "How does LightRAG solve the hallucination problem in large language models?",
+    "queryparam": {
+      "mode": "mix",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1775461619,
+    "update_time": 1775461619,
+    "_id": "mix:keywords:87464899e8ce3d25002d507a011f7689"
+  },
+  "mix:keywords:b6822ca6e782682a01ae0ad04cb85ba6": {
+    "return": "{\"high_level_keywords\": [\"RAG system\", \"Components of RAG system\", \"Information retrieval\"], \"low_level_keywords\": [\"Data generation\", \"Retrieval techniques\", \"Model architecture\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "What are the three main components required in a RAG system?",
+    "queryparam": {
+      "mode": "mix",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1775461619,
+    "update_time": 1775461619,
+    "_id": "mix:keywords:b6822ca6e782682a01ae0ad04cb85ba6"
+  },
+  "mix:keywords:712381357bb3f68b17fbb53da2afb00b": {
+    "return": "{\"high_level_keywords\": [\"LightRAG\", \"Retrieval performance\", \"Traditional RAG approaches\"], \"low_level_keywords\": [\"Performance comparison\", \"Document retrieval\", \"RAG methodology\", \"Efficiency metrics\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "How does LightRAG's retrieval performance compare to traditional RAG approaches?",
+    "queryparam": {
+      "mode": "mix",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1775461619,
+    "update_time": 1775461619,
+    "_id": "mix:keywords:712381357bb3f68b17fbb53da2afb00b"
+  },
+  "mix:keywords:5254162199dedf990413006a2ff4b7d8": {
+    "return": "{\"high_level_keywords\": [\"Vector databases\", \"LightRAG support\", \"Key characteristics\"], \"low_level_keywords\": [\"Pinecone\", \"Milvus\", \"Weaviate\", \"Faiss\", \"Database features\", \"Scalability\", \"Performance\", \"Flexibility\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "What vector databases does LightRAG support and what are their key characteristics?",
+    "queryparam": {
+      "mode": "mix",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1775461619,
+    "update_time": 1775461619,
+    "_id": "mix:keywords:5254162199dedf990413006a2ff4b7d8"
+  },
+  "mix:keywords:a371579f9caa9036f66b0a75c76e5d5d": {
+    "return": "{\"high_level_keywords\": [\"Core benefits\", \"LightRAG\", \"Traditional RAG systems\", \"Improvement\"], \"low_level_keywords\": [\"Efficiency\", \"Performance\", \"User experience\", \"Data retrieval\", \"Generative models\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "What are the core benefits of LightRAG and how does it improve upon traditional RAG systems?",
+    "queryparam": {
+      "mode": "mix",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1775461641,
+    "update_time": 1775461641,
+    "_id": "mix:keywords:a371579f9caa9036f66b0a75c76e5d5d"
+  },
+  "mix:keywords:d7943a9578ae019ae8406a7f6485c532": {
+    "return": "{\"high_level_keywords\": [\"Key metrics\", \"RAG system quality\", \"Evaluation methods\"], \"low_level_keywords\": [\"Precision\", \"Recall\", \"F1 score\", \"Response time\", \"User satisfaction\"]}",
+    "cache_type": "keywords",
+    "chunk_id": null,
+    "original_prompt": "What are the four key metrics for evaluating RAG system quality and what does each metric measure?",
+    "queryparam": {
+      "mode": "mix",
+      "response_type": "Multiple Paragraphs",
+      "top_k": 10,
+      "chunk_top_k": 20,
+      "max_entity_tokens": 6000,
+      "max_relation_tokens": 8000,
+      "max_total_tokens": 30000,
+      "user_prompt": "",
+      "enable_rerank": true
+    },
+    "create_time": 1775461644,
+    "update_time": 1775461644,
+    "_id": "mix:keywords:d7943a9578ae019ae8406a7f6485c532"
+  }
+}

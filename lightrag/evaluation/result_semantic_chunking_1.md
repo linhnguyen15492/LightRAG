@@ -1,0 +1,35 @@
+INFO: 📊 EVALUATION RESULTS SUMMARY
+INFO: ===================================================================================================================
+INFO: #    | Question                                           |  Faith | AnswRel | CtxRec | CtxPrec |  RAGAS | Status
+INFO: -------------------------------------------------------------------------------------------------------------------
+INFO: 1    | How does LightRAG solve the hallucination probl... | 1.0000 |  0.9856 | 1.0000 |  1.0000 | 0.9964 |      ✓
+INFO: 2    | What are the three main components required in ... | 1.0000 |  0.6003 | 1.0000 |  1.0000 | 0.9001 |      ✓
+INFO: 3    | How does LightRAG's retrieval performance compa... | 1.0000 |  0.7487 | 1.0000 |  1.0000 | 0.9372 |      ✓
+INFO: 4    | What vector databases does LightRAG support and... | 0.8710 |  0.9379 | 1.0000 |  1.0000 | 0.9522 |      ✓
+INFO: 5    | What are the four key metrics for evaluating RA... | 0.9130 |  0.8898 | 1.0000 |  1.0000 | 0.9507 |      ✓
+INFO: 6    | What are the core benefits of LightRAG and how ... | 0.8387 |  0.7747 | 1.0000 |  1.0000 | 0.9034 |      ✓
+INFO: ===================================================================================================================
+INFO: 
+INFO: ======================================================================
+INFO: 📊 EVALUATION COMPLETE
+INFO: ======================================================================
+INFO: Total Tests:    6
+INFO: Successful:     6
+INFO: Failed:         0
+INFO: Success Rate:   100.00%
+INFO: Elapsed Time:   242.92 seconds
+INFO: Avg Time/Test:  40.49 seconds
+INFO: 
+INFO: ======================================================================
+INFO: 📈 BENCHMARK RESULTS (Average)
+INFO: ======================================================================
+INFO: Average Faithfulness:      0.9371
+INFO: Average Answer Relevance:  0.8228
+INFO: Average Context Recall:    1.0000
+INFO: Average Context Precision: 1.0000
+INFO: Average RAGAS Score:       0.9400
+INFO: ----------------------------------------------------------------------
+INFO: Min RAGAS Score:           0.9001
+INFO: Max RAGAS Score:           0.9964
+INFO: 
+INFO: ======================================================================

@@ -1,0 +1,108 @@
+{
+  "doc-43885d0b4bf9beb71d6b0d9910c35607": {
+    "entity_names": [
+      "External Knowledge Retrieval",
+      "LightRAG",
+      "Large Language Models",
+      "Limitations of Large Language Models",
+      "HKUDS",
+      "Document-Grounded Responses",
+      "Hallucination Problem"
+    ],
+    "count": 7,
+    "create_time": 1775461432,
+    "update_time": 1775461432,
+    "_id": "doc-43885d0b4bf9beb71d6b0d9910c35607"
+  },
+  "doc-cde97f29f1d045af4ace8711a4b40dc2": {
+    "entity_names": [
+      "RAG System",
+      "Retrieval System",
+      "Search Engines",
+      "Vector Databases",
+      "Large Language Model",
+      "Embedding Model"
+    ],
+    "count": 6,
+    "create_time": 1775461450,
+    "update_time": 1775461450,
+    "_id": "doc-cde97f29f1d045af4ace8711a4b40dc2"
+  },
+  "doc-33cf6cfe009c4582f5c7822bfc2d9140": {
+    "entity_names": [
+      "LightRAG",
+      "Traditional RAG",
+      "Vector Database",
+      "Retrieval Performance",
+      "API Design",
+      "Prompting Strategies"
+    ],
+    "count": 6,
+    "create_time": 1775461469,
+    "update_time": 1775461469,
+    "_id": "doc-33cf6cfe009c4582f5c7822bfc2d9140"
+  },
+  "doc-d205d8cef950c84f5aa969dd46bf8288": {
+    "entity_names": [
+      "Nano-VectorDB",
+      "ChromaDB",
+      "Neo4j",
+      "Vector Search Capabilities",
+      "Built-in Nano-VectorDB",
+      "LightRAG",
+      "Qdrant",
+      "Redis",
+      "Milvus",
+      "Database Selection Benefits",
+      "RAG Applications",
+      "Unified Data Management",
+      "MongoDB Atlas Vector Search"
+    ],
+    "count": 13,
+    "create_time": 1775461492,
+    "update_time": 1775461492,
+    "_id": "doc-d205d8cef950c84f5aa969dd46bf8288"
+  },
+  "doc-8e8c9f2cab667198ee3294275f9f35cb": {
+    "entity_names": [
+      "Context Precision Metric",
+      "REST API",
+      "RAG System Quality",
+      "LightRAG",
+      "Context Recall Metric",
+      "REST API Server with FastAPI",
+      "Docker Container Deployment",
+      "Answer Relevance Metric",
+      "Python",
+      "Docker",
+      "FastAPI",
+      "LLM Providers",
+      "Faithfulness Metric"
+    ],
+    "count": 13,
+    "create_time": 1775461513,
+    "update_time": 1775461513,
+    "_id": "doc-8e8c9f2cab667198ee3294275f9f35cb"
+  },
+  "doc-f0eefca9cb82d43daaa321f121acc4b7": {
+    "entity_names": [
+      "RAG System",
+      "05_evaluation_and_deployment.md",
+      "RAGAS Score",
+      "lightrag/prompt.py",
+      "LightRAG",
+      "03_lightrag_improvements.md",
+      "Documentation Files",
+      "Sample Documents",
+      "01_lightrag_overview.md",
+      "Evaluation",
+      "02_rag_architecture.md",
+      "Python",
+      "04_supported_databases.md"
+    ],
+    "count": 13,
+    "create_time": 1775461537,
+    "update_time": 1775461537,
+    "_id": "doc-f0eefca9cb82d43daaa321f121acc4b7"
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "doc-43885d0b4bf9beb71d6b0d9910c35607": {
+    "relation_pairs": [
+      [
+        "HKUDS",
+        "LightRAG"
+      ],
+      [
+        "Document-Grounded Responses",
+        "LightRAG"
+      ],
+      [
+        "LightRAG",
+        "Limitations of Large Language Models"
+      ],
+      [
+        "Hallucination Problem",
+        "LightRAG"
+      ],
+      [
+        "External Knowledge Retrieval",
+        "LightRAG"
+      ],
+      [
+        "Large Language Models",
+        "LightRAG"
+      ]
+    ],
+    "count": 6,
+    "create_time": 1775461432,
+    "update_time": 1775461432,
+    "_id": "doc-43885d0b4bf9beb71d6b0d9910c35607"
+  },
+  "doc-cde97f29f1d045af4ace8711a4b40dc2": {
+    "relation_pairs": [
+      [
+        "Embedding Model",
+        "RAG System"
+      ],
+      [
+        "Embedding Model",
+        "Large Language Model"
+      ],
+      [
+        "Embedding Model",
+        "Retrieval System"
+      ],
+      [
+        "RAG System",
+        "Retrieval System"
+      ],
+      [
+        "Retrieval System",
+        "Search Engines"
+      ],
+      [
+        "Retrieval System",
+        "Vector Databases"
+      ],
+      [
+        "Large Language Model",
+        "RAG System"
+      ]
+    ],
+    "count": 7,
+    "create_time": 1775461450,
+    "update_time": 1775461450,
+    "_id": "doc-cde97f29f1d045af4ace8711a4b40dc2"
+  },
+  "doc-33cf6cfe009c4582f5c7822bfc2d9140": {
+    "relation_pairs": [
+      [
+        "LightRAG",
+        "Retrieval Performance"
+      ],
+      [
+        "API Design",
+        "LightRAG"
+      ],
+      [
+        "LightRAG",
+        "Vector Database"
+      ],
+      [
+        "LightRAG",
+        "Prompting Strategies"
+      ],
+      [
+        "LightRAG",
+        "Traditional RAG"
+      ]
+    ],
+    "count": 5,
+    "create_time": 1775461469,
+    "update_time": 1775461469,
+    "_id": "doc-33cf6cfe009c4582f5c7822bfc2d9140"
+  },
+  "doc-d205d8cef950c84f5aa969dd46bf8288": {
+    "relation_pairs": [
+      [
+        "LightRAG",
+        "Nano-VectorDB"
+      ],
+      [
+        "Unified Data Management",
+        "Vector Search Capabilities"
+      ],
+      [
+        "LightRAG",
+        "Neo4j"
+      ],
+      [
+        "LightRAG",
+        "Milvus"
+      ],
+      [
+        "LightRAG",
+        "RAG Applications"
+      ],
+      [
+        "LightRAG",
+        "Redis"
+      ],
+      [
+        "LightRAG",
+        "Qdrant"
+      ],
+      [
+        "ChromaDB",
+        "LightRAG"
+      ],
+      [
+        "Database Selection Benefits",
+        "LightRAG"
+      ],
+      [
+        "LightRAG",
+        "MongoDB Atlas Vector Search"
+      ],
+      [
+        "Built-in Nano-VectorDB",
+        "LightRAG"
+      ]
+    ],
+    "count": 11,
+    "create_time": 1775461492,
+    "update_time": 1775461492,
+    "_id": "doc-d205d8cef950c84f5aa969dd46bf8288"
+  },
+  "doc-8e8c9f2cab667198ee3294275f9f35cb": {
+    "relation_pairs": [
+      [
+        "LightRAG",
+        "REST API Server with FastAPI"
+      ],
+      [
+        "Answer Relevance Metric",
+        "RAG System Quality"
+      ],
+      [
+        "LightRAG",
+        "REST API"
+      ],
+      [
+        "FastAPI",
+        "LightRAG"
+      ],
+      [
+        "LightRAG",
+        "Python"
+      ],
+      [
+        "Docker",
+        "LightRAG"
+      ],
+      [
+        "LLM Providers",
+        "LightRAG"
+      ],
+      [
+        "Docker Container Deployment",
+        "LightRAG"
+      ],
+      [
+        "Context Precision Metric",
+        "RAG System Quality"
+      ],
+      [
+        "Context Recall Metric",
+        "RAG System Quality"
+      ],
+      [
+        "Faithfulness Metric",
+        "RAG System Quality"
+      ]
+    ],
+    "count": 11,
+    "create_time": 1775461513,
+    "update_time": 1775461513,
+    "_id": "doc-8e8c9f2cab667198ee3294275f9f35cb"
+  },
+  "doc-f0eefca9cb82d43daaa321f121acc4b7": {
+    "relation_pairs": [
+      [
+        "Documentation Files",
+        "LightRAG"
+      ],
+      [
+        "02_rag_architecture.md",
+        "RAG System"
+      ],
+      [
+        "Evaluation",
+        "RAGAS Score"
+      ],
+      [
+        "05_evaluation_and_deployment.md",
+        "LightRAG"
+      ],
+      [
+        "Evaluation",
+        "Python"
+      ],
+      [
+        "01_lightrag_overview.md",
+        "LightRAG"
+      ],
+      [
+        "04_supported_databases.md",
+        "LightRAG"
+      ],
+      [
+        "LightRAG",
+        "RAG System"
+      ],
+      [
+        "03_lightrag_improvements.md",
+        "LightRAG"
+      ],
+      [
+        "LightRAG",
+        "Sample Documents"
+      ]
+    ],
+    "count": 10,
+    "create_time": 1775461537,
+    "update_time": 1775461537,
+    "_id": "doc-f0eefca9cb82d43daaa321f121acc4b7"
+  }
+}

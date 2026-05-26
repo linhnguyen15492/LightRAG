@@ -5,7 +5,7 @@ import asyncio
 import numpy as np
 
 from lightrag import LightRAG
-from lightrag.utils import EmbeddingFunc
+from lightrag.utils import wrap_embedding_func_with_attrs
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
 
 
@@ -25,8 +25,13 @@ async def llm_model_func(
     )
 
 
+@wrap_embedding_func_with_attrs(
+    embedding_dim=4096,
+    max_token_size=8192,
+    model_name="solar-embedding-1-large-query",
+)
 async def embedding_func(texts: list[str]) -> np.ndarray:
-    return await openai_embed(
+    return await openai_embed.func(
         texts,
         model="solar-embedding-1-large-query",
         api_key=os.getenv("UPSTAGE_API_KEY"),
@@ -38,7 +43,7 @@ async def embedding_func(texts: list[str]) -> np.ndarray:
 
 
 def insert_text(rag, file_path):
-    with open(file_path, mode="r") as f:
+    with open(file_path, mode="r", encoding="utf-8") as f:
         unique_contexts = json.load(f)
 
     retries = 0
@@ -56,7 +61,7 @@ def insert_text(rag, file_path):
 
 
 cls = "mix"
-WORKING_DIR = f"../{cls}"
+WORKING_DIR = f"./{cls}"
 
 if not os.path.exists(WORKING_DIR):
     os.mkdir(WORKING_DIR)
@@ -66,7 +71,7 @@ async def initialize_rag():
     rag = LightRAG(
         working_dir=WORKING_DIR,
         llm_model_func=llm_model_func,
-        embedding_func=EmbeddingFunc(embedding_dim=4096, func=embedding_func),
+        embedding_func=embedding_func,
     )
 
     await rag.initialize_storages()  # Auto-initializes pipeline_status
@@ -76,7 +81,7 @@ async def initialize_rag():
 def main():
     # Initialize RAG instance
     rag = asyncio.run(initialize_rag())
-    insert_text(rag, f"../datasets/unique_contexts/{cls}_unique_contexts.json")
+    insert_text(rag, f"datasets/unique_contexts/{cls}_unique_contexts.json")
 
 
 if __name__ == "__main__":

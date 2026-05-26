@@ -2,6 +2,7 @@ import os
 import re
 import json
 from lightrag import LightRAG, QueryParam
+from lightrag.utils import wrap_embedding_func_with_attrs
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
 from lightrag.utils import EmbeddingFunc, always_get_an_event_loop
 import numpy as np
@@ -24,7 +25,7 @@ async def llm_model_func(
 
 
 async def embedding_func(texts: list[str]) -> np.ndarray:
-    return await openai_embed(
+    return await openai_embed.func(
         texts,
         model="solar-embedding-1-large-query",
         api_key=os.getenv("UPSTAGE_API_KEY"),
@@ -83,21 +84,41 @@ def run_queries_and_save_to_json(
         result_file.write("\n]")
 
 
-if __name__ == "__main__":
-    cls = "mix"
-    mode = "hybrid"
-    WORKING_DIR = f"../{cls}"
-
-    rag = LightRAG(working_dir=WORKING_DIR)
+async def initialize_rag():
     rag = LightRAG(
         working_dir=WORKING_DIR,
         llm_model_func=llm_model_func,
         embedding_func=EmbeddingFunc(embedding_dim=4096, func=embedding_func),
     )
-    query_param = QueryParam(mode=mode)
 
-    base_dir = "../datasets/questions"
+    await rag.initialize_storages()
+    return rag
+
+
+if __name__ == "__main__":
+    cls = "mix"
+    mode = "hybrid"
+    WORKING_DIR = f"./{cls}"
+
+    # Keep the assembled prompt comfortably below the 32k context limit.
+    # The default budget is too close to the model limit once system text,
+    # retrieved context, and formatting overhead are added together.
+    query_param = QueryParam(
+        mode=mode,
+        top_k=20,
+        chunk_top_k=8,
+        max_entity_tokens=4500,
+        max_relation_tokens=6500,
+        max_total_tokens=24000,
+        enable_rerank=False,
+    )
+
+    base_dir = "./datasets/questions"
     queries = extract_queries(f"{base_dir}/{cls}_questions.txt")
+
+    loop = always_get_an_event_loop()
+    rag = loop.run_until_complete(initialize_rag())
+
     run_queries_and_save_to_json(
         queries, rag, query_param, f"{base_dir}/result.json", f"{base_dir}/errors.json"
     )

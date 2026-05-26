@@ -1,0 +1,934 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d13" for="edge" attr.name="truncate" attr.type="string"/>
+<key id="d12" for="edge" attr.name="created_at" attr.type="long"/>
+<key id="d11" for="edge" attr.name="file_path" attr.type="string"/>
+<key id="d10" for="edge" attr.name="source_id" attr.type="string"/>
+<key id="d9" for="edge" attr.name="keywords" attr.type="string"/>
+<key id="d8" for="edge" attr.name="description" attr.type="string"/>
+<key id="d7" for="edge" attr.name="weight" attr.type="double"/>
+<key id="d6" for="node" attr.name="truncate" attr.type="string"/>
+<key id="d5" for="node" attr.name="created_at" attr.type="long"/>
+<key id="d4" for="node" attr.name="file_path" attr.type="string"/>
+<key id="d3" for="node" attr.name="source_id" attr.type="string"/>
+<key id="d2" for="node" attr.name="description" attr.type="string"/>
+<key id="d1" for="node" attr.name="entity_type" attr.type="string"/>
+<key id="d0" for="node" attr.name="entity_id" attr.type="string"/>
+<graph edgedefault="undirected"><node id="LightRAG">
+  <data key="d0">LightRAG</data>
+  <data key="d1">method</data>
+  <data key="d2">LightRAG is a retrieval-augmented generation framework designed for efficient development of RAG applications.&lt;SEP&gt;LightRAG is an advanced framework that improves upon traditional RAG approaches by offering simpler API design, faster retrieval performance, better vector database integration, and optimized prompting strategies.&lt;SEP&gt;LightRAG is a tool that supports vector search operations and includes a built-in nano-vectordb for easy deployments.&lt;SEP&gt;LightRAG is an organization that supports multiple vector databases to enable flexible deployment options for various applications.&lt;SEP&gt;LightRAG is a framework that enables the selective retrieval of relevant content in various deployment options.&lt;SEP&gt;LightRAG is a framework that can be deployed in production through various approaches to enhance retrieval-augmented generation.&lt;SEP&gt;LightRAG is a framework designed to address hallucination problems in retrieval-augmented generation (RAG) systems.</data>
+  <data key="d3">chunk-b82a84a0db12fa70b3252294cbb07cfa&lt;SEP&gt;chunk-3ab88a7ea07b155c41c81dc1fa3ffb65&lt;SEP&gt;chunk-a7534773ede26ba695c6f58ad56a167d&lt;SEP&gt;chunk-c4a9c90e59381a08a8f6133a6bedd53d&lt;SEP&gt;chunk-678dd7910ca01e209fe807783a33d293&lt;SEP&gt;chunk-0a6a2a571099c70c7e20dbd90da662e2&lt;SEP&gt;chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/01_lightrag_overview.md&lt;SEP&gt;lightrag/evaluation/sample_documents/03_lightrag_improvements.md&lt;SEP&gt;lightrag/evaluation/sample_documents/04_supported_databases.md&lt;SEP&gt;lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md&lt;SEP&gt;lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461531</data>
+  <data key="d6"></data>
+</node>
+<node id="HKUDS">
+  <data key="d0">HKUDS</data>
+  <data key="d1">organization</data>
+  <data key="d2">HKUDS, or Hong Kong University Data Science Lab, developed the LightRAG framework.</data>
+  <data key="d3">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d4">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d5">1775461429</data>
+  <data key="d6"></data>
+</node>
+<node id="Large Language Models">
+  <data key="d0">Large Language Models</data>
+  <data key="d1">concept</data>
+  <data key="d2">Large language models (LLMs) are AI models that generate text but face limitations like hallucinations and knowledge cutoffs.</data>
+  <data key="d3">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d4">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d5">1775461429</data>
+  <data key="d6"></data>
+</node>
+<node id="Document-Grounded Responses">
+  <data key="d0">Document-Grounded Responses</data>
+  <data key="d1">method</data>
+  <data key="d2">Document-grounded responses are generated using external documents to ensure the accuracy of outputs from LLMs.</data>
+  <data key="d3">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d4">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d5">1775461429</data>
+  <data key="d6"></data>
+</node>
+<node id="External Knowledge Retrieval">
+  <data key="d0">External Knowledge Retrieval</data>
+  <data key="d1">method</data>
+  <data key="d2">External knowledge retrieval is a process used in LightRAG to enhance the capabilities of large language models.</data>
+  <data key="d3">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d4">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d5">1775461429</data>
+  <data key="d6"></data>
+</node>
+<node id="Limitations of Large Language Models">
+  <data key="d0">Limitations of Large Language Models</data>
+  <data key="d1">concept</data>
+  <data key="d2">The limitations of large language models include knowledge cutoffs, hallucinations, and a lack of domain-specific expertise.</data>
+  <data key="d3">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d4">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d5">1775461429</data>
+  <data key="d6"></data>
+</node>
+<node id="Hallucination Problem">
+  <data key="d0">Hallucination Problem</data>
+  <data key="d1">concept</data>
+  <data key="d2">The hallucination problem refers to the tendency of large language models to generate incorrect or fabricated responses.</data>
+  <data key="d3">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d4">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d5">1775461429</data>
+  <data key="d6"></data>
+</node>
+<node id="RAG System">
+  <data key="d0">RAG System</data>
+  <data key="d1">concept</data>
+  <data key="d2">The RAG system is a framework that uses retrieval, embedding, and language model components to generate intelligent responses.&lt;SEP&gt;The RAG system refers to components involved in retrieval-augmented generation processes.</data>
+  <data key="d3">chunk-2a891514222c7fefbcc45259ee3bb8c2&lt;SEP&gt;chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/02_rag_architecture.md&lt;SEP&gt;lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461531</data>
+  <data key="d6"></data>
+</node>
+<node id="Retrieval System">
+  <data key="d0">Retrieval System</data>
+  <data key="d1">component</data>
+  <data key="d2">The retrieval system is the first component of the RAG system that finds relevant documents from large collections using vector databases and search engines.</data>
+  <data key="d3">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d5">1775461447</data>
+  <data key="d6"></data>
+</node>
+<node id="Embedding Model">
+  <data key="d0">Embedding Model</data>
+  <data key="d1">component</data>
+  <data key="d2">The embedding model is the second component of the RAG system that converts text into vector representations for similarity search.</data>
+  <data key="d3">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d5">1775461447</data>
+  <data key="d6"></data>
+</node>
+<node id="Large Language Model">
+  <data key="d0">Large Language Model</data>
+  <data key="d1">component</data>
+  <data key="d2">The large language model is the third component of the RAG system that generates responses based on retrieved context and synthesizes information from multiple sources.</data>
+  <data key="d3">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d5">1775461447</data>
+  <data key="d6"></data>
+</node>
+<node id="Vector Databases">
+  <data key="d0">Vector Databases</data>
+  <data key="d1">concept</data>
+  <data key="d2">Vector databases are used within the retrieval system to store and manage large collections of vector representations for effective document retrieval.</data>
+  <data key="d3">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d5">1775461447</data>
+  <data key="d6"></data>
+</node>
+<node id="Search Engines">
+  <data key="d0">Search Engines</data>
+  <data key="d1">method</data>
+  <data key="d2">Search engines can function as retrieval systems in RAG architectures to find relevant documents from collections.</data>
+  <data key="d3">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d5">1775461447</data>
+  <data key="d6"></data>
+</node>
+<node id="Traditional RAG">
+  <data key="d0">Traditional RAG</data>
+  <data key="d1">concept</data>
+  <data key="d2">Traditional RAG refers to older retrieval-augmented generation systems that are often more complex, slower, and limited in database integration compared to newer frameworks.</data>
+  <data key="d3">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d4">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d5">1775461466</data>
+  <data key="d6"></data>
+</node>
+<node id="Vector Database">
+  <data key="d0">Vector Database</data>
+  <data key="d1">concept</data>
+  <data key="d2">Vector databases are storage systems optimized for handling vector representations of data, which are crucial for applications like retrieval-augmented generation.</data>
+  <data key="d3">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d4">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d5">1775461466</data>
+  <data key="d6"></data>
+</node>
+<node id="API Design">
+  <data key="d0">API Design</data>
+  <data key="d1">concept</data>
+  <data key="d2">API Design refers to the structure and functionality of application programming interfaces, which in the context of LightRAG, is designed to be simpler and more intuitive for developers to use compared to traditional systems.</data>
+  <data key="d3">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d4">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d5">1775461466</data>
+  <data key="d6"></data>
+</node>
+<node id="Retrieval Performance">
+  <data key="d0">Retrieval Performance</data>
+  <data key="d1">concept</data>
+  <data key="d2">Retrieval Performance measures how quickly and efficiently a system can retrieve data, with LightRAG showing improvements in speed compared to traditional RAG approaches.</data>
+  <data key="d3">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d4">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d5">1775461466</data>
+  <data key="d6"></data>
+</node>
+<node id="Prompting Strategies">
+  <data key="d0">Prompting Strategies</data>
+  <data key="d1">concept</data>
+  <data key="d2">Prompting Strategies are techniques used to structure queries or prompts in order to optimize the responses from a system, with LightRAG implementing refined strategies for better accuracy.</data>
+  <data key="d3">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d4">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d5">1775461466</data>
+  <data key="d6"></data>
+</node>
+<node id="ChromaDB">
+  <data key="d0">ChromaDB</data>
+  <data key="d1">data</data>
+  <data key="d2">ChromaDB is a vector database that provides efficient vector similarity search capabilities and simple deployment for development environments.</data>
+  <data key="d3">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Neo4j">
+  <data key="d0">Neo4j</data>
+  <data key="d1">data</data>
+  <data key="d2">Neo4j is a graph database that supports graph-based knowledge representation and enables relationship modeling alongside vector capabilities.</data>
+  <data key="d3">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Milvus">
+  <data key="d0">Milvus</data>
+  <data key="d1">data</data>
+  <data key="d2">Milvus is a high-performance vector database that efficiently handles large-scale vector collections and supports vector search at scale.</data>
+  <data key="d3">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Qdrant">
+  <data key="d0">Qdrant</data>
+  <data key="d1">data</data>
+  <data key="d2">Qdrant is a vector database that offers fast similarity search and filtering capabilities, providing production-ready vector search infrastructure.</data>
+  <data key="d3">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="MongoDB Atlas Vector Search">
+  <data key="d0">MongoDB Atlas Vector Search</data>
+  <data key="d1">data</data>
+  <data key="d2">MongoDB Atlas Vector Search combines traditional document storage with vector search capabilities for unified data management.</data>
+  <data key="d3">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Redis">
+  <data key="d0">Redis</data>
+  <data key="d1">data</data>
+  <data key="d2">Redis is an in-memory database known for its low latency vector search capabilities, ideal for real-time applications.&lt;SEP&gt;Redis supports in-memory vector search operations with low latency, offering fast retrieval for real-time applications.</data>
+  <data key="d3">chunk-a7534773ede26ba695c6f58ad56a167d&lt;SEP&gt;chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Built-in Nano-VectorDB">
+  <data key="d0">Built-in Nano-VectorDB</data>
+  <data key="d1">data</data>
+  <data key="d2">The Built-in Nano-VectorDB is included with LightRAG for simple deployments, providing basic vector search functionality without dependencies.</data>
+  <data key="d3">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Nano-VectorDB">
+  <data key="d0">Nano-VectorDB</data>
+  <data key="d1">database</data>
+  <data key="d2">Nano-VectorDB is a built-in database offered by LightRAG that facilitates simple deployments and basic vector search functionality.</data>
+  <data key="d3">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="RAG Applications">
+  <data key="d0">RAG Applications</data>
+  <data key="d1">concept</data>
+  <data key="d2">RAG applications refer to applications that utilize retrieval-augmented generation methodologies in data management.</data>
+  <data key="d3">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Database Selection Benefits">
+  <data key="d0">Database Selection Benefits</data>
+  <data key="d1">concept</data>
+  <data key="d2">Database selection benefits highlight the advantages of multiple database support for developers in choosing suitable backends.</data>
+  <data key="d3">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Vector Search Capabilities">
+  <data key="d0">Vector Search Capabilities</data>
+  <data key="d1">concept</data>
+  <data key="d2">Vector search capabilities refer to the database's ability to efficiently perform vector searches as part of its functionality.</data>
+  <data key="d3">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Unified Data Management">
+  <data key="d0">Unified Data Management</data>
+  <data key="d1">concept</data>
+  <data key="d2">Unified data management involves integrating various data sources to enable effective data retrieval and handling, particularly for RAG applications.</data>
+  <data key="d3">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d4">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d5">1775461487</data>
+  <data key="d6"></data>
+</node>
+<node id="Docker">
+  <data key="d0">Docker</data>
+  <data key="d1">method</data>
+  <data key="d2">Docker is a platform that allows for the deployment of LightRAG through containerized applications across different environments.</data>
+  <data key="d3">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461507</data>
+  <data key="d6"></data>
+</node>
+<node id="FastAPI">
+  <data key="d0">FastAPI</data>
+  <data key="d1">method</data>
+  <data key="d2">FastAPI is a web framework that serves as a REST API for deploying LightRAG, allowing functionality to be exposed via HTTP endpoints.</data>
+  <data key="d3">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461507</data>
+  <data key="d6"></data>
+</node>
+<node id="Python">
+  <data key="d0">Python</data>
+  <data key="d1">programming_language</data>
+  <data key="d2">Python is a programming language that facilitates direct integration of LightRAG into applications, allowing for programmatic access and custom workflows.&lt;SEP&gt;Python is a programming language used to run the evaluation script for LightRAG.</data>
+  <data key="d3">chunk-678dd7910ca01e209fe807783a33d293&lt;SEP&gt;chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md&lt;SEP&gt;lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<node id="REST API">
+  <data key="d0">REST API</data>
+  <data key="d1">concept</data>
+  <data key="d2">REST API is an architectural style used by the FastAPI framework to facilitate client-server interactions for RAG applications.</data>
+  <data key="d3">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461507</data>
+  <data key="d6"></data>
+</node>
+<node id="LLM Providers">
+  <data key="d0">LLM Providers</data>
+  <data key="d1">concept</data>
+  <data key="d2">LLM providers refer to the services that can be integrated with LightRAG to enhance its deployment flexibility.</data>
+  <data key="d3">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461507</data>
+  <data key="d6"></data>
+</node>
+<node id="RAG System Quality">
+  <data key="d0">RAG System Quality</data>
+  <data key="d1">concept</data>
+  <data key="d2">RAG system quality is evaluated based on several key metrics related to the accuracy and relevance of answers generated by the system.</data>
+  <data key="d3">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461507</data>
+  <data key="d6"></data>
+</node>
+<node id="Faithfulness Metric">
+  <data key="d0">Faithfulness Metric</data>
+  <data key="d1">metric</data>
+  <data key="d2">The Faithfulness Metric measures whether answers are factually grounded in retrieved context and detects hallucinations in LLM responses.</data>
+  <data key="d3">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461507</data>
+  <data key="d6"></data>
+</node>
+<node id="Answer Relevance Metric">
+  <data key="d0">Answer Relevance Metric</data>
+  <data key="d1">metric</data>
+  <data key="d2">The Answer Relevance Metric evaluates how well answers address user questions, measuring the quality and appropriateness of responses.</data>
+  <data key="d3">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461508</data>
+  <data key="d6"></data>
+</node>
+<node id="Context Recall Metric">
+  <data key="d0">Context Recall Metric</data>
+  <data key="d1">metric</data>
+  <data key="d2">The Context Recall Metric assesses the completeness of information retrieval from documents, indicating the effectiveness of the retrieval system.</data>
+  <data key="d3">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461508</data>
+  <data key="d6"></data>
+</node>
+<node id="Context Precision Metric">
+  <data key="d0">Context Precision Metric</data>
+  <data key="d1">metric</data>
+  <data key="d2">The Context Precision Metric measures the quality and relevance of retrieved documents, evaluating the accuracy and selectivity of the retrieval system.</data>
+  <data key="d3">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461508</data>
+  <data key="d6"></data>
+</node>
+<node id="Docker Container Deployment">
+  <data key="d0">Docker Container Deployment</data>
+  <data key="d1">method</data>
+  <data key="d2">Docker Container Deployment is a method that enables consistent deployment of LightRAG by providing isolated runtime environments.</data>
+  <data key="d3">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461508</data>
+  <data key="d6"></data>
+</node>
+<node id="REST API Server with FastAPI">
+  <data key="d0">REST API Server with FastAPI</data>
+  <data key="d1">method</data>
+  <data key="d2">The REST API Server with FastAPI is a framework for deploying LightRAG functionality, exposing it through HTTP endpoints.</data>
+  <data key="d3">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d4">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d5">1775461508</data>
+  <data key="d6"></data>
+</node>
+<node id="Sample Documents">
+  <data key="d0">Sample Documents</data>
+  <data key="d1">content</data>
+  <data key="d2">Sample documents that correspond to test questions in the provided dataset.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461531</data>
+  <data key="d6"></data>
+</node>
+<node id="Evaluation">
+  <data key="d0">Evaluation</data>
+  <data key="d1">event</data>
+  <data key="d2">Evaluation refers to the process of assessing the quality of the retrieval-augmented generation output.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461531</data>
+  <data key="d6"></data>
+</node>
+<node id="RAGAS Score">
+  <data key="d0">RAGAS Score</data>
+  <data key="d1">data</data>
+  <data key="d2">RAGAS score is a metric expected to be in the range of 91-100% per test question.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<node id="Documentation Files">
+  <data key="d0">Documentation Files</data>
+  <data key="d1">content</data>
+  <data key="d2">Documentation files include markdown formats that outline the overview and performance of LightRAG.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<node id="lightrag/prompt.py">
+  <data key="d0">lightrag/prompt.py</data>
+  <data key="d1">location</data>
+  <data key="d2">The path to the Python script used for customizing prompts in LightRAG for better entity extraction results.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<node id="01_lightrag_overview.md">
+  <data key="d0">01_lightrag_overview.md</data>
+  <data key="d1">content</data>
+  <data key="d2">A markdown file that outlines the overview of the LightRAG framework and discusses the hallucination problem.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<node id="02_rag_architecture.md">
+  <data key="d0">02_rag_architecture.md</data>
+  <data key="d1">content</data>
+  <data key="d2">A markdown file that describes the components of the RAG system architecture.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<node id="03_lightrag_improvements.md">
+  <data key="d0">03_lightrag_improvements.md</data>
+  <data key="d1">content</data>
+  <data key="d2">A markdown file that compares LightRAG with traditional RAG approaches and highlights improvements.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<node id="04_supported_databases.md">
+  <data key="d0">04_supported_databases.md</data>
+  <data key="d1">content</data>
+  <data key="d2">A markdown file that details the vector databases supported by LightRAG.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<node id="05_evaluation_and_deployment.md">
+  <data key="d0">05_evaluation_and_deployment.md</data>
+  <data key="d1">content</data>
+  <data key="d2">A markdown file that focuses on metrics and deployment strategies for LightRAG.</data>
+  <data key="d3">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d4">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d5">1775461532</data>
+  <data key="d6"></data>
+</node>
+<edge source="LightRAG" target="HKUDS">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG was developed by HKUDS, highlighting the organization's role in its creation.</data>
+  <data key="d9">framework development,organizational association</data>
+  <data key="d10">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d11">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d12">1775461429</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Large Language Models">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG addresses the limitations of large language models by integrating knowledge retrieval systems.</data>
+  <data key="d9">enhancement,problem-solving</data>
+  <data key="d10">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d11">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d12">1775461430</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Document-Grounded Responses">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG utilizes document-grounded responses to enhance the accuracy of its outputs.</data>
+  <data key="d9">accuracy improvement,method integration</data>
+  <data key="d10">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d11">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d12">1775461430</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="External Knowledge Retrieval">
+  <data key="d7">1.0</data>
+  <data key="d8">External knowledge retrieval is a key function within LightRAG that supplements LLM capabilities.</data>
+  <data key="d9">capability enhancement,operational method</data>
+  <data key="d10">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d11">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d12">1775461430</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Limitations of Large Language Models">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG addresses the limitations of large language models, providing solutions to enhance their capabilities.</data>
+  <data key="d9">address,solution</data>
+  <data key="d10">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d11">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d12">1775461431</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Hallucination Problem">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG effectively solves the hallucination problem associated with large language models by ensuring responses are grounded in actual documents.</data>
+  <data key="d9">effectiveness,problem-solving</data>
+  <data key="d10">chunk-b82a84a0db12fa70b3252294cbb07cfa</data>
+  <data key="d11">lightrag/evaluation/sample_documents/01_lightrag_overview.md</data>
+  <data key="d12">1775461431</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Traditional RAG">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG offers significant improvements over traditional RAG in various aspects such as API design and performance.</data>
+  <data key="d9">comparison,improvement</data>
+  <data key="d10">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d11">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d12">1775461467</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Vector Database">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG provides better integration with various vector databases, enabling flexible storage backend selection.</data>
+  <data key="d9">database support,integration</data>
+  <data key="d10">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d11">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d12">1775461467</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="API Design">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG's simpler API design enhances usability for developers by reducing complexity compared to traditional RAG systems.</data>
+  <data key="d9">enhancement,usability</data>
+  <data key="d10">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d11">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d12">1775461468</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Prompting Strategies">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG's implementation of optimized prompting strategies leads to improved accuracy in the responses generated by the system.</data>
+  <data key="d9">accuracy improvement,optimization</data>
+  <data key="d10">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d11">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d12">1775461468</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Retrieval Performance">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG enhances retrieval performance by optimizing document retrieval operations for speed and efficiency compared to traditional RAG.</data>
+  <data key="d9">efficiency,enhancement</data>
+  <data key="d10">chunk-3ab88a7ea07b155c41c81dc1fa3ffb65</data>
+  <data key="d11">lightrag/evaluation/sample_documents/03_lightrag_improvements.md</data>
+  <data key="d12">1775461468</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="ChromaDB">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG supports ChromaDB for its vector database capabilities and deployment ease.</data>
+  <data key="d9">database support,deployment flexibility</data>
+  <data key="d10">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461488</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Neo4j">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG supports Neo4j to enable graph-based knowledge representation alongside vector search.</data>
+  <data key="d9">database support,graph capabilities</data>
+  <data key="d10">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461488</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Milvus">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG supports Milvus for its high-performance vector search and ability to handle large-scale collections.</data>
+  <data key="d9">database support,performance</data>
+  <data key="d10">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461489</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Qdrant">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG supports Qdrant for its fast similarity search and production-ready capabilities.</data>
+  <data key="d9">database support,fast search</data>
+  <data key="d10">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461489</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="MongoDB Atlas Vector Search">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG supports MongoDB Atlas Vector Search for combining document storage with vector search functionalities.</data>
+  <data key="d9">database support,unified management</data>
+  <data key="d10">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461490</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Redis">
+  <data key="d7">2.0</data>
+  <data key="d8">LightRAG supports Redis for executing vector search operations with low latency.&lt;SEP&gt;LightRAG supports Redis for its in-memory vector search operations that allow fast retrieval.</data>
+  <data key="d9">database support,low latency,support,vector search</data>
+  <data key="d10">chunk-a7534773ede26ba695c6f58ad56a167d&lt;SEP&gt;chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461490</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Built-in Nano-VectorDB">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG includes the Built-in Nano-VectorDB for simple deployments without external dependencies.</data>
+  <data key="d9">database support,simple deployment</data>
+  <data key="d10">chunk-a7534773ede26ba695c6f58ad56a167d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461491</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Nano-VectorDB">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG includes a built-in Nano-VectorDB to simplify deployments and eliminate external database dependencies.</data>
+  <data key="d9">built-in feature,deployment</data>
+  <data key="d10">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461491</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="RAG Applications">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG is designed to support RAG applications through its data management capabilities.</data>
+  <data key="d9">application support,data management</data>
+  <data key="d10">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461492</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Database Selection Benefits">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG provides database selection benefits that allow developers to choose appropriate storage backends based on specific needs.</data>
+  <data key="d9">developer choice,flexibility</data>
+  <data key="d10">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461492</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Docker">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG can be deployed using Docker containers to ensure consistent deployment across different environments.</data>
+  <data key="d9">containerization,deployment method</data>
+  <data key="d10">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461509</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="FastAPI">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG utilizes FastAPI to serve its functionality via a REST API for deployment.</data>
+  <data key="d9">API services,deployment method</data>
+  <data key="d10">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461510</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Python">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG can be directly integrated into Python applications for customized workflows and access to its capabilities.</data>
+  <data key="d9">application workflow,integration method</data>
+  <data key="d10">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461511</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="REST API">
+  <data key="d7">1.0</data>
+  <data key="d8">The deployment of LightRAG as a REST API enhances its functionality exposure through HTTP endpoints.</data>
+  <data key="d9">architectural style,functionality exposure</data>
+  <data key="d10">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461511</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="LLM Providers">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG supports integration with multiple LLM providers to enhance its deployment flexibility.</data>
+  <data key="d9">deployment flexibility,integration</data>
+  <data key="d10">chunk-678dd7910ca01e209fe807783a33d293</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461512</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Docker Container Deployment">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG can be deployed in production using Docker Container Deployment, facilitating consistent environment management.</data>
+  <data key="d9">deployment method,production implementation</data>
+  <data key="d10">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461512</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="REST API Server with FastAPI">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG can also be deployed through the REST API Server with FastAPI, enabling HTTP-based functionality exposure.</data>
+  <data key="d9">deployment method,production implementation</data>
+  <data key="d10">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461513</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Sample Documents">
+  <data key="d7">1.0</data>
+  <data key="d8">Sample documents are intended for evaluating and implementing the LightRAG framework.</data>
+  <data key="d9">document purpose,framework implementation</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461533</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="RAG System">
+  <data key="d7">1.0</data>
+  <data key="d8">LightRAG is categorized as a method used within the context of RAG systems.</data>
+  <data key="d9">method,system</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461533</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="Documentation Files">
+  <data key="d7">1.0</data>
+  <data key="d8">Documentation files serve as reference materials for understanding the LightRAG framework.</data>
+  <data key="d9">framework summary,reference materials</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461534</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="01_lightrag_overview.md">
+  <data key="d7">1.0</data>
+  <data key="d8">The file provides content relevant to understanding the LightRAG framework.</data>
+  <data key="d9">document content,framework reference</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461534</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="03_lightrag_improvements.md">
+  <data key="d7">1.0</data>
+  <data key="d8">The file contrasts LightRAG with traditional methods, detailing advancement improvements.</data>
+  <data key="d9">advancements,comparison</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461535</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="04_supported_databases.md">
+  <data key="d7">1.0</data>
+  <data key="d8">The file documents the types of vector databases that LightRAG supports.</data>
+  <data key="d9">database support,documentation</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461535</data>
+  <data key="d13"></data>
+</edge>
+<edge source="LightRAG" target="05_evaluation_and_deployment.md">
+  <data key="d7">1.0</data>
+  <data key="d8">The file provides metrics and guidance on deploying the LightRAG framework.</data>
+  <data key="d9">deployment guidance,metrics</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461536</data>
+  <data key="d13"></data>
+</edge>
+<edge source="RAG System" target="Retrieval System">
+  <data key="d7">1.0</data>
+  <data key="d8">The retrieval system is an essential component of the RAG system framework.</data>
+  <data key="d9">component of,system architecture</data>
+  <data key="d10">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d12">1775461448</data>
+  <data key="d13"></data>
+</edge>
+<edge source="RAG System" target="Embedding Model">
+  <data key="d7">1.0</data>
+  <data key="d8">The embedding model is a key component of the RAG system framework.</data>
+  <data key="d9">component of,system architecture</data>
+  <data key="d10">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d12">1775461448</data>
+  <data key="d13"></data>
+</edge>
+<edge source="RAG System" target="Large Language Model">
+  <data key="d7">1.0</data>
+  <data key="d8">The large language model is a critical component of the RAG system framework.</data>
+  <data key="d9">component of,system architecture</data>
+  <data key="d10">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d12">1775461449</data>
+  <data key="d13"></data>
+</edge>
+<edge source="RAG System" target="02_rag_architecture.md">
+  <data key="d7">1.0</data>
+  <data key="d8">The file serves as a content reference for the architecture of the RAG system.</data>
+  <data key="d9">document content,system reference</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461533</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Retrieval System" target="Vector Databases">
+  <data key="d7">1.0</data>
+  <data key="d8">The retrieval system utilizes vector databases to store relevant documents for efficient retrieval.</data>
+  <data key="d9">data storage,functionality</data>
+  <data key="d10">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d12">1775461448</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Retrieval System" target="Search Engines">
+  <data key="d7">1.0</data>
+  <data key="d8">Search engines act as retrieval systems, aiding in finding relevant documents in the RAG architecture.</data>
+  <data key="d9">functionality,method of operation</data>
+  <data key="d10">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d12">1775461449</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Retrieval System" target="Embedding Model">
+  <data key="d7">1.0</data>
+  <data key="d8">The retrieval system interacts with the embedding model to enable similarity matching between queries and documents.</data>
+  <data key="d9">interaction,process</data>
+  <data key="d10">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d12">1775461449</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Embedding Model" target="Large Language Model">
+  <data key="d7">1.0</data>
+  <data key="d8">The embedding model provides vector representations that the large language model uses to generate responses based on retrieved context.</data>
+  <data key="d9">interaction,process</data>
+  <data key="d10">chunk-2a891514222c7fefbcc45259ee3bb8c2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/02_rag_architecture.md</data>
+  <data key="d12">1775461450</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Vector Search Capabilities" target="Unified Data Management">
+  <data key="d7">1.0</data>
+  <data key="d8">Vector search capabilities support unified data management for RAG applications to enhance data retrieval efficiency.</data>
+  <data key="d9">data integration,functional support</data>
+  <data key="d10">chunk-c4a9c90e59381a08a8f6133a6bedd53d</data>
+  <data key="d11">lightrag/evaluation/sample_documents/04_supported_databases.md</data>
+  <data key="d12">1775461489</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Python" target="Evaluation">
+  <data key="d7">1.0</data>
+  <data key="d8">The evaluation process is executed using Python scripts.</data>
+  <data key="d9">process execution,programming</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461533</data>
+  <data key="d13"></data>
+</edge>
+<edge source="RAG System Quality" target="Faithfulness Metric">
+  <data key="d7">1.0</data>
+  <data key="d8">The RAG System Quality is assessed through the Faithfulness Metric, which measures factual accuracy and grounding of responses.</data>
+  <data key="d9">evaluation,system measurement</data>
+  <data key="d10">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461509</data>
+  <data key="d13"></data>
+</edge>
+<edge source="RAG System Quality" target="Answer Relevance Metric">
+  <data key="d7">1.0</data>
+  <data key="d8">The RAG System Quality is assessed through the Answer Relevance Metric, which evaluates response quality and relevance to user questions.</data>
+  <data key="d9">evaluation,system measurement</data>
+  <data key="d10">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461510</data>
+  <data key="d13"></data>
+</edge>
+<edge source="RAG System Quality" target="Context Recall Metric">
+  <data key="d7">1.0</data>
+  <data key="d8">The RAG System Quality is evaluated using the Context Recall Metric, which determines the completeness of document retrieval.</data>
+  <data key="d9">evaluation,system measurement</data>
+  <data key="d10">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461511</data>
+  <data key="d13"></data>
+</edge>
+<edge source="RAG System Quality" target="Context Precision Metric">
+  <data key="d7">1.0</data>
+  <data key="d8">The RAG System Quality assessment includes the Context Precision Metric, focusing on the relevance and quality of retrieved documents.</data>
+  <data key="d9">evaluation,system measurement</data>
+  <data key="d10">chunk-0a6a2a571099c70c7e20dbd90da662e2</data>
+  <data key="d11">lightrag/evaluation/sample_documents/05_evaluation_and_deployment.md</data>
+  <data key="d12">1775461511</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Evaluation" target="RAGAS Score">
+  <data key="d7">1.0</data>
+  <data key="d8">The RAGAS score is the expected output from the evaluation of questions.</data>
+  <data key="d9">assessment metric,quality score</data>
+  <data key="d10">chunk-42de391f02d01ca65205e069a3947cfc</data>
+  <data key="d11">lightrag/evaluation/sample_documents/README.md</data>
+  <data key="d12">1775461533</data>
+  <data key="d13"></data>
+</edge>
+</graph></graphml>

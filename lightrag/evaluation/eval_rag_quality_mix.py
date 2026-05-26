@@ -278,14 +278,64 @@ class RAGEvaluator:
         logger.info("  • Results Directory:    %s", self.results_dir.name)
 
     def _load_test_dataset(self) -> List[Dict[str, str]]:
-        """Load test cases from JSON file"""
+        """Load test cases from JSON file.
+
+        Supported formats:
+        1. Object format: {"test_cases": [{"question": ..., "ground_truth": ...}]}
+        2. Array format:  [{"query": ..., "result": ...}, ...]
+        """
         if not self.test_dataset_path.exists():
             raise FileNotFoundError(f"Test dataset not found: {self.test_dataset_path}")
 
-        with open(self.test_dataset_path) as f:
+        with open(self.test_dataset_path, encoding="utf-8") as f:
             data = json.load(f)
 
-        return data.get("test_cases", [])
+        if isinstance(data, dict):
+            raw_cases = data.get("test_cases", [])
+        elif isinstance(data, list):
+            raw_cases = data
+        else:
+            raise ValueError(
+                "Invalid dataset format. Expected object with 'test_cases' "
+                "or an array of test case objects."
+            )
+
+        normalized_cases: List[Dict[str, str]] = []
+        default_project = self.test_dataset_path.stem
+
+        for idx, case in enumerate(raw_cases, 1):
+            if not isinstance(case, dict):
+                logger.warning(
+                    "Skipping invalid test case at index %s: not an object", idx
+                )
+                continue
+
+            question = case.get("question") or case.get("query")
+            ground_truth = case.get("ground_truth") or case.get("result")
+
+            if not question or not ground_truth:
+                logger.warning(
+                    "Skipping test case at index %s: missing question/query or ground_truth/result",
+                    idx,
+                )
+                continue
+
+            normalized_cases.append(
+                {
+                    "question": str(question),
+                    "ground_truth": str(ground_truth),
+                    "project": str(case.get("project", default_project)),
+                }
+            )
+
+        if not normalized_cases:
+            raise ValueError(
+                "No valid test cases found in dataset. "
+                "Each case must include either 'question'+'ground_truth' "
+                "or 'query'+'result'."
+            )
+
+        return normalized_cases
 
     async def generate_rag_response(
         self,
@@ -1018,3 +1068,5 @@ Examples:
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+# uv run lightrag\evaluation\eval_rag_quality_mix.py -d datasets\questions\result.json
