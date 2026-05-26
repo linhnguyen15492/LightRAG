@@ -1068,3 +1068,5 @@ Examples:
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+# uv run lightrag\evaluation\eval_rag_quality_mix.py -d datasets\questions\result.json
