@@ -1951,21 +1951,45 @@ class _PipelineMixin:
                             **v_opts,
                         )
                     else:  # "F"
-                        f_opts = chunk_opts.get("fixed_token") or {}
-                        chunk_opts_str = _format_chunking_params(
-                            resolved_chunk_size, f_opts
+                        # F honors its own ``chunk_token_size`` override
+                        # (``addon_params['chunker']['fixed_token']`` or a
+                        # caller-supplied ``chunk_options``) exactly like
+                        # R/V/P: pop it out of the kwargs so we don't pass it
+                        # both positionally and via ``**`` splat (which would
+                        # TypeError), falling back to the shared top-level
+                        # resolved size when unset.
+                        f_opts = dict(chunk_opts.get("fixed_token") or {})
+                        f_chunk_size = int(
+                            f_opts.pop("chunk_token_size", resolved_chunk_size)
                         )
+                        chunk_opts_str = _format_chunking_params(f_chunk_size, f_opts)
                         logger.info(f"Chunking F: {chunk_opts_str}, doc_id: {doc_id}")
                         chunking_result = chunking_by_fixed_token(
                             self.tokenizer,
                             content,
-                            resolved_chunk_size,
+                            f_chunk_size,
+                            _emit_source_span=True,
                             **f_opts,
                         )
                 else:
                     f_opts = chunk_opts.get("fixed_token") or {}
+                    # Honor the F-strategy ``chunk_token_size`` override (from
+                    # ``CHUNK_F_SIZE`` env or an explicit
+                    # ``addon_params['chunker']['fixed_token']`` / per-doc
+                    # ``chunk_options``) on this legacy path too, falling back
+                    # to the shared top-level resolved size when unset.  This
+                    # keeps ``LightRAG.ainsert`` — which intentionally does NOT
+                    # pass a ``process_options`` selector (so the user's
+                    # ``chunking_func`` still runs) — consistent with the
+                    # explicit-F branch instead of silently ignoring
+                    # ``fixed_token.chunk_token_size``.  ``f_opts`` is read
+                    # field-by-field here (not splatted), so there is no
+                    # positional/kwarg collision.
+                    legacy_chunk_size = int(
+                        f_opts.get("chunk_token_size", resolved_chunk_size)
+                    )
                     chunk_opts_str = _format_chunking_params(
-                        resolved_chunk_size,
+                        legacy_chunk_size,
                         {
                             "split_by_character": f_opts.get("split_by_character"),
                             "split_by_character_only": f_opts.get(
@@ -1980,6 +2004,14 @@ class _PipelineMixin:
                     logger.info(
                         f"Chunking F(legacy): {chunk_opts_str}, doc_id: {doc_id}"
                     )
+                    from lightrag.chunker import chunking_by_token_size
+
+                    # Only the unmodified default fixed-token chunker understands the
+                    # private ``_emit_source_span`` kwarg; a user-supplied
+                    # ``chunking_func`` must not receive it.
+                    legacy_kwargs = {}
+                    if self.chunking_func is chunking_by_token_size:
+                        legacy_kwargs["_emit_source_span"] = True
                     chunking_result = self.chunking_func(
                         self.tokenizer,
                         content,
@@ -1989,7 +2021,8 @@ class _PipelineMixin:
                             "chunk_overlap_token_size",
                             self.chunk_overlap_token_size,
                         ),
-                        resolved_chunk_size,
+                        legacy_chunk_size,
+                        **legacy_kwargs,
                     )
                 if inspect.isawaitable(chunking_result):
                     chunking_result = await chunking_result
@@ -2096,6 +2129,35 @@ class _PipelineMixin:
                         extraction_meta["hard_fallback_split"] = (
                             f"{original_chunk_count} -> {len(chunking_result)}"
                         )
+
+                # Backfill block provenance for F/R/V chunks (P already carries
+                # sidecars; multimodal chunks too). Runs on the final, post-split
+                # chunk list so each slice maps precisely to the block(s) its
+                # content covers. Raises ChunkBlockMatchError -> doc FAILED when a
+                # chunk cannot be located in blocks.jsonl.
+                #
+                # Gated to the built-in F/R/V strategies — or the legacy path only
+                # when ``chunking_func`` is still the unmodified default fixed-token
+                # chunker. A user-supplied ``chunking_func`` may emit summaries /
+                # rewritten text that cannot be located in blocks.jsonl, which would
+                # wrongly FAIL the document.
+                if doc_process_opts.chunking_explicit:
+                    sidecar_backfill_eligible = doc_process_opts.chunking in {
+                        "F",
+                        "R",
+                        "V",
+                    }
+                else:
+                    from lightrag.chunker import chunking_by_token_size
+
+                    sidecar_backfill_eligible = (
+                        self.chunking_func is chunking_by_token_size
+                    )
+
+                if blocks_path and sidecar_backfill_eligible:
+                    from lightrag.sidecar import backfill_chunk_sidecars
+
+                    backfill_chunk_sidecars(chunking_result, blocks_path)
 
                 chunks = build_chunks_dict_from_chunking_result(
                     chunking_result, doc_id=doc_id, file_path=file_path
