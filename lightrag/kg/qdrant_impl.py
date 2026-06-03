@@ -11,6 +11,7 @@ import numpy as np
 import pipmaster as pm
 
 from ..base import BaseVectorStorage
+from ..constants import DEFAULT_QUERY_PRIORITY
 from ..exceptions import DataMigrationError
 from ..kg.shared_storage import get_data_init_lock, get_namespace_lock
 from ..utils import _cooperative_yield, compute_mdhash_id, logger
@@ -37,6 +38,7 @@ CREATED_AT_FIELD = "created_at"
 ID_FIELD = "id"
 DEFAULT_QDRANT_UPSERT_MAX_PAYLOAD_BYTES = 16 * 1024 * 1024  # 16MB
 DEFAULT_QDRANT_UPSERT_MAX_POINTS_PER_BATCH = 128
+DEFAULT_QDRANT_DELETE_MAX_POINTS_PER_BATCH = 1000
 
 config = configparser.ConfigParser()
 config.read("config.ini", "utf-8")
@@ -485,6 +487,12 @@ class QdrantVectorDBStorage(BaseVectorStorage):
                 str(DEFAULT_QDRANT_UPSERT_MAX_POINTS_PER_BATCH),
             )
         )
+        self._max_delete_points_per_batch = int(
+            os.getenv(
+                "QDRANT_DELETE_MAX_POINTS_PER_BATCH",
+                str(DEFAULT_QDRANT_DELETE_MAX_POINTS_PER_BATCH),
+            )
+        )
         if self._max_upsert_payload_bytes <= 0:
             logger.warning(
                 f"QDRANT_UPSERT_MAX_PAYLOAD_BYTES={self._max_upsert_payload_bytes} is non-positive, disable payload-size splitting"
@@ -492,6 +500,10 @@ class QdrantVectorDBStorage(BaseVectorStorage):
         if self._max_upsert_points_per_batch <= 0:
             logger.warning(
                 f"QDRANT_UPSERT_MAX_POINTS_PER_BATCH={self._max_upsert_points_per_batch} is non-positive, disable point-count splitting"
+            )
+        if self._max_delete_points_per_batch <= 0:
+            logger.warning(
+                f"QDRANT_DELETE_MAX_POINTS_PER_BATCH={self._max_delete_points_per_batch} is non-positive, disable delete point-count splitting"
             )
         self._initialized = False
 
@@ -544,7 +556,17 @@ class QdrantVectorDBStorage(BaseVectorStorage):
         max_payload_bytes: int,
         max_points_per_batch: int,
     ) -> list[tuple[list[models.PointStruct], int]]:
-        """Split points into batches using payload size and point count limits."""
+        """Split points into batches using payload size and point count limits.
+
+        The byte budget is the primary limiter; the point count is a secondary
+        guard. A single point larger than the byte budget is emitted as its own
+        single-point batch rather than raising: the JSON estimate is
+        conservative (and the default budget sits well below the real
+        server/gateway limit), so the request may still be accepted. Leaving the
+        server as the final arbiter avoids failing the entire flush over one
+        oversized point, which would also block every healthy point buffered
+        alongside it from ever committing.
+        """
         if not points:
             return []
 
@@ -560,15 +582,6 @@ class QdrantVectorDBStorage(BaseVectorStorage):
 
         for point in points:
             point_size = QdrantVectorDBStorage._estimate_point_payload_bytes(point)
-            point_with_array_overhead = point_size + 2
-            point_id = str(point.id)
-
-            if point_with_array_overhead > payload_limit:
-                raise ValueError(
-                    f"Single Qdrant point exceeds payload limit: id={point_id}, "
-                    f"estimated_bytes={point_with_array_overhead}, "
-                    f"limit={int(payload_limit)}"
-                )
 
             # If current batch not empty, a comma is needed before next element.
             separator_overhead = 1 if current_batch else 0
@@ -703,7 +716,7 @@ class QdrantVectorDBStorage(BaseVectorStorage):
             embedding = query_embedding
         else:
             embedding_result = await self.embedding_func(
-                [query], context="query", _priority=5
+                [query], context="query", _priority=DEFAULT_QUERY_PRIORITY
             )  # higher priority for query
             embedding = embedding_result[0]
 
@@ -730,6 +743,12 @@ class QdrantVectorDBStorage(BaseVectorStorage):
     async def index_done_callback(self) -> None:
         """Flush buffered vector ops; Qdrant persists automatically once written."""
         await self._flush_pending_vector_ops()
+
+    async def drop_pending_index_ops(self) -> None:
+        """Discard buffered upserts/deletes (pipeline aborting on error)."""
+        async with self._flush_lock:
+            self._pending_vector_docs.clear()
+            self._pending_vector_deletes.clear()
 
     async def _flush_pending_vector_ops(self) -> None:
         """Flush buffered vector upserts and deletes via batched client calls.
@@ -830,13 +849,24 @@ class QdrantVectorDBStorage(BaseVectorStorage):
                     if len(point_batches) > 1:
                         logger.info(
                             f"[{self.workspace}] Qdrant upsert split into {len(point_batches)} batches "
-                            f"for {len(list_points)} points (max_payload_bytes={self._max_upsert_payload_bytes}, "
-                            f"max_points_per_batch={self._max_upsert_points_per_batch})"
+                            f"for {len(list_points)} records (max_payload={self._max_upsert_payload_bytes}, "
+                            f"batch={self._max_upsert_points_per_batch})"
                         )
 
                     for batch_index, (points_batch, estimated_bytes) in enumerate(
                         point_batches, 1
                     ):
+                        if (
+                            len(points_batch) == 1
+                            and self._max_upsert_payload_bytes > 0
+                            and estimated_bytes > self._max_upsert_payload_bytes
+                        ):
+                            logger.warning(
+                                f"[{self.workspace}] {self.namespace} flush: single point "
+                                f"id={points_batch[0].id} estimated {estimated_bytes} bytes "
+                                f"exceeds QDRANT_UPSERT_MAX_PAYLOAD_BYTES="
+                                f"{self._max_upsert_payload_bytes}; sending as its own batch"
+                            )
                         logger.debug(
                             f"[{self.workspace}] Qdrant upsert batch {batch_index}/{len(point_batches)}: "
                             f"points={len(points_batch)}, estimated_payload_bytes={estimated_bytes}"
@@ -857,11 +887,21 @@ class QdrantVectorDBStorage(BaseVectorStorage):
                         )
                         for doc_id in pending_deletes
                     ]
-                    self._client.delete(
-                        collection_name=self.final_namespace,
-                        points_selector=models.PointIdsList(points=qdrant_delete_ids),
-                        wait=True,
+                    # Chunk deletes by point count; ids are short so a count cap
+                    # is enough to keep each request under the server limit.
+                    delete_chunk = (
+                        self._max_delete_points_per_batch
+                        if self._max_delete_points_per_batch > 0
+                        else len(qdrant_delete_ids)
                     )
+                    for i in range(0, len(qdrant_delete_ids), delete_chunk):
+                        self._client.delete(
+                            collection_name=self.final_namespace,
+                            points_selector=models.PointIdsList(
+                                points=qdrant_delete_ids[i : i + delete_chunk]
+                            ),
+                            wait=True,
+                        )
             except Exception as e:
                 logger.error(
                     f"[{self.workspace}] Error flushing vector ops "

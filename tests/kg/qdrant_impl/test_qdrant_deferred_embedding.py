@@ -98,6 +98,7 @@ def _make_storage(
     storage._max_batch_size = 10
     storage._max_upsert_payload_bytes = 16 * 1024 * 1024
     storage._max_upsert_points_per_batch = 128
+    storage._max_delete_points_per_batch = 1000
     storage._pending_vector_docs = {}
     storage._pending_vector_deletes = set()
 
@@ -408,3 +409,18 @@ async def test_drop_clears_pending_buffers():
     assert result["status"] == "success"
     assert s._pending_vector_docs == {}
     assert s._pending_vector_deletes == set()
+
+
+@pytest.mark.offline
+@pytest.mark.asyncio
+async def test_drop_pending_index_ops_clears_buffers():
+    """On an internal-error abort the pipeline calls drop_pending_index_ops to
+    discard buffered upserts/deletes without flushing them (PR #3187)."""
+    embed = CountingEmbeddingFunc()
+    s = _make_storage(embed)
+    await s.upsert({"v1": {"content": "x"}, "v2": {"content": "y"}})
+    s._pending_vector_deletes.add("old-id")
+    assert s._pending_vector_docs
+    await s.drop_pending_index_ops()
+    assert not s._pending_vector_docs
+    assert not s._pending_vector_deletes
