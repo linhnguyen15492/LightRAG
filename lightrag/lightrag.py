@@ -19,7 +19,9 @@ from typing import (
     AsyncIterator,
     Awaitable,
     Callable,
+    Coroutine,
     Iterator,
+    TypeVar,
     cast,
     final,
     Literal,
@@ -156,6 +158,105 @@ from lightrag.storage_migrations import _StorageMigrationMixin
 # the OS environment variables take precedence over the .env file
 load_dotenv(dotenv_path=".env", override=False)
 
+_SyncResultT = TypeVar("_SyncResultT")
+
+
+def _run_sync(
+    coro_factory: Callable[[], Coroutine[Any, Any, _SyncResultT]],
+    *,
+    sync_name: str,
+    async_name: str,
+    owning_loop: Optional[asyncio.AbstractEventLoop] = None,
+) -> _SyncResultT:
+    """Drive an async coroutine to completion from a synchronous wrapper.
+
+    The synchronous wrappers (``insert``, ``query``, ``delete_by_entity``,
+    …) all share the same shape: acquire an event loop and call
+    ``loop.run_until_complete()``.  That call is only valid when the current
+    thread has **no** running loop *and* the loop it ends up driving is the
+    same one the instance's storages were initialized on.  Two misuse modes
+    break this, and both have the same fix — use the ``a*`` coroutine from
+    async code:
+
+    * **Same thread, inside a running loop** (e.g. directly inside an
+      ``async def`` / FastAPI handler): ``run_until_complete()`` would raise
+      ``RuntimeError: This event loop is already running``.  Detected up front
+      via :func:`asyncio.get_running_loop`.
+    * **A different — but still alive — loop than the storages bound to**
+      (e.g. ``loop.run_in_executor(None, rag.insert, …)`` runs the wrapper on a
+      pool thread that spins up a fresh loop while the app's loop keeps
+      running, or an asyncio loop runs on another thread): the shared
+      ``asyncio.Lock`` objects in ``lightrag.kg.shared_storage`` are bound to
+      ``owning_loop``, so acquiring them from a second loop raises
+      ``RuntimeError: <Lock> is bound to a different event loop`` or stalls on
+      a callback scheduled on an idle loop.  Detected by comparing the loop we
+      are about to drive against ``owning_loop``.
+
+    The cross-loop check only fires while ``owning_loop`` is still **open**.  A
+    *closed* ``owning_loop`` means the loop the storages were initialized on is
+    gone — e.g. the common ``rag = asyncio.run(initialize_rag())`` pattern,
+    where ``asyncio.run`` closes the loop after ``initialize_storages()`` — so
+    there is no live loop to clash with.  We let those calls through to run on a
+    fresh loop, preserving the long-standing behavior (any lock still bound to
+    the closed loop is handled by ``asyncio.Lock`` itself, exactly as before).
+
+    These synchronous wrappers are compatibility conveniences for simple,
+    single-threaded scripts. SDK integrations, async applications, and
+    concurrent workloads should prefer the ``a*`` coroutine APIs. The wrappers
+    are not cross-thread-safe entry points for concurrent calls against the same
+    ``LightRAG`` instance; callers that must invoke them from multiple threads
+    need to serialize access externally or route work through one event loop.
+
+    The coroutine is created lazily via ``coro_factory`` so neither guard ever
+    leaves an un-awaited coroutine behind when it raises.
+
+    Args:
+        coro_factory: Zero-arg callable returning the coroutine to run.
+        sync_name: Name of the sync wrapper, used in the error message.
+        async_name: Name of the async method to recommend instead.
+        owning_loop: The loop the instance's storages were initialized on
+            (``LightRAG._owning_loop``). ``None`` when storages have not been
+            initialized yet, or closed, in which case the cross-loop check is
+            skipped.
+
+    Returns:
+        The result of awaiting the coroutine.
+
+    Raises:
+        RuntimeError: if called from within a running asyncio event loop, or
+            from a different loop while the loop the storages were bound to is
+            still open.
+    """
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        pass  # No running loop on this thread — safe to drive our own.
+    else:
+        raise RuntimeError(
+            f"{sync_name}() cannot be called from within a running asyncio "
+            f"event loop. Synchronous wrappers internally call "
+            f"loop.run_until_complete(), which Python forbids while a loop is "
+            f"already running on this thread. "
+            f"Use `await {async_name}(...)` from async code instead."
+        )
+    loop = always_get_an_event_loop()
+    if (
+        owning_loop is not None
+        and not owning_loop.is_closed()
+        and loop is not owning_loop
+    ):
+        raise RuntimeError(
+            f"{sync_name}() must run on the same event loop this LightRAG "
+            f"instance was initialized on, but it is being driven from a "
+            f"different loop — typically `loop.run_in_executor(None, "
+            f"rag.{sync_name}, ...)`, or an asyncio loop running on another "
+            f"thread. LightRAG's shared storage locks are bound to the original "
+            f"loop, so running here would raise '<Lock> is bound to a different "
+            f"event loop' or stall. "
+            f"Use `await {async_name}(...)` on the original loop instead."
+        )
+    return loop.run_until_complete(coro_factory())
+
 
 @final
 @dataclass
@@ -234,6 +335,11 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         default=get_env_value("KG_CHUNK_PICK_METHOD", DEFAULT_KG_CHUNK_PICK_METHOD, str)
     )
     """Method for selecting text chunks: 'WEIGHT' for weight-based selection, 'VECTOR' for embedding similarity-based selection."""
+
+    enable_content_headings: bool = field(
+        default_factory=lambda: get_env_value("ENABLE_CONTENT_HEADINGS", True, bool)
+    )
+    """Append each chunk's parent heading path as a `content_headings` field in the chunk JSON sent to the LLM."""
 
     # Entity extraction
     # ---
@@ -438,7 +544,9 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     """Recommended length of LLM summary output."""
 
     llm_model_max_async: int = field(
-        default=int(os.getenv("MAX_ASYNC", DEFAULT_MAX_ASYNC))
+        default=int(
+            os.getenv("MAX_ASYNC_LLM", os.getenv("MAX_ASYNC", DEFAULT_MAX_ASYNC))
+        )
     )
     """Maximum number of concurrent LLM calls."""
 
@@ -468,12 +576,13 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         default=int(
             os.getenv(
                 "MAX_ASYNC_RERANK",
-                os.getenv("MAX_ASYNC", DEFAULT_MAX_ASYNC),
+                os.getenv("MAX_ASYNC_LLM", os.getenv("MAX_ASYNC", DEFAULT_MAX_ASYNC)),
             )
         )
     )
     """Maximum number of concurrent rerank calls.
-    Falls back to MAX_ASYNC when MAX_ASYNC_RERANK is unset."""
+    Falls back to MAX_ASYNC_LLM when MAX_ASYNC_RERANK is unset
+    (MAX_ASYNC is still accepted as a deprecated alias)."""
 
     default_rerank_timeout: int = field(
         default=int(os.getenv("RERANK_TIMEOUT", DEFAULT_RERANK_TIMEOUT))
@@ -945,6 +1054,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                 self.rerank_model_max_async,
                 llm_timeout=self.default_rerank_timeout,
                 queue_name="Rerank func",
+                concurrency_group="rerank",
             )(self.rerank_model_func)
 
         # Init Embedding
@@ -975,6 +1085,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                 self.embedding_func_max_async,
                 llm_timeout=self.default_embedding_timeout,
                 queue_name="Embedding func",
+                concurrency_group="embedding",
             )(self.embedding_func.func)
             # Use dataclasses.replace() to create a new instance, leaving the original unchanged
             self.embedding_func = replace(self.embedding_func, func=wrapped_func)
@@ -1089,6 +1200,13 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         self._llm_role_builder = None
         self._retired_llm_queue_cleanup_tasks: set[asyncio.Task] = set()
 
+        # The event loop this instance's storages bind to (set in
+        # initialize_storages). Kept off the dataclass fields so asdict() in
+        # _build_global_config() never tries to (deep)copy a live loop — that
+        # raises TypeError on Python 3.14. _run_sync uses it only as a reference
+        # for the cross-loop guard.
+        self._owning_loop: Optional[asyncio.AbstractEventLoop] = None
+
         user_role_configs = self.role_llm_configs or {}
         if not isinstance(user_role_configs, Mapping):
             raise TypeError(
@@ -1148,6 +1266,11 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     async def initialize_storages(self):
         """Storage initialization must be called one by one to prevent deadlock"""
         if self._storages_status == StoragesStatus.CREATED:
+            # Record the loop the storages (and their shared_storage locks) bind
+            # to, so the synchronous wrappers can fail fast if later driven from a
+            # different loop (run_in_executor / a loop on another thread).
+            self._owning_loop = asyncio.get_running_loop()
+
             # Set the first initialized workspace will set the default workspace
             # Allows namespace operation without specifying workspace for backward compatibility
             default_workspace = get_default_workspace()
@@ -1288,16 +1411,18 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         Returns:
             str: tracking ID for monitoring processing status
         """
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(
-            self.ainsert(
+        return _run_sync(
+            lambda: self.ainsert(
                 input,
                 split_by_character,
                 split_by_character_only,
                 ids,
                 file_paths,
                 track_id,
-            )
+            ),
+            sync_name="insert",
+            async_name="ainsert",
+            owning_loop=self._owning_loop,
         )
 
     async def ainsert(
@@ -1376,9 +1501,11 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         text_chunks: list[str],
         doc_id: str | list[str] | None = None,
     ) -> None:
-        loop = always_get_an_event_loop()
-        loop.run_until_complete(
-            self.ainsert_custom_chunks(full_text, text_chunks, doc_id)
+        _run_sync(
+            lambda: self.ainsert_custom_chunks(full_text, text_chunks, doc_id),
+            sync_name="insert_custom_chunks",
+            async_name="ainsert_custom_chunks",
+            owning_loop=self._owning_loop,
         )
 
     # TODO: deprecated, use ainsert instead
@@ -1649,8 +1776,12 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     def insert_custom_kg(
         self, custom_kg: dict[str, Any], full_doc_id: str = None
     ) -> None:
-        loop = always_get_an_event_loop()
-        loop.run_until_complete(self.ainsert_custom_kg(custom_kg, full_doc_id))
+        _run_sync(
+            lambda: self.ainsert_custom_kg(custom_kg, full_doc_id),
+            sync_name="insert_custom_kg",
+            async_name="ainsert_custom_kg",
+            owning_loop=self._owning_loop,
+        )
 
     async def ainsert_custom_kg(
         self,
@@ -1936,9 +2067,12 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         Returns:
             str: The result of the query execution.
         """
-        loop = always_get_an_event_loop()
-
-        return loop.run_until_complete(self.aquery(query, param, system_prompt))  # type: ignore
+        return _run_sync(  # type: ignore
+            lambda: self.aquery(query, param, system_prompt),
+            sync_name="query",
+            async_name="aquery",
+            owning_loop=self._owning_loop,
+        )
 
     async def aquery(
         self,
@@ -1991,8 +2125,12 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         Returns:
             dict[str, Any]: Same structured data result as aquery_data.
         """
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(self.aquery_data(query, param))
+        return _run_sync(
+            lambda: self.aquery_data(query, param),
+            sync_name="query_data",
+            async_name="aquery_data",
+            owning_loop=self._owning_loop,
+        )
 
     async def aquery_data(
         self,
@@ -2151,6 +2289,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                 global_config,
                 hashing_kv=self.llm_response_cache,
                 system_prompt=None,
+                text_chunks_db=self.text_chunks,
             )
         elif data_param.mode == "bypass":
             logger.debug("[aquery_data] Using bypass mode")
@@ -2247,6 +2386,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                     global_config,
                     hashing_kv=self.llm_response_cache,
                     system_prompt=system_prompt,
+                    text_chunks_db=self.text_chunks,
                 )
             elif param.mode == "bypass":
                 # Bypass mode: directly use LLM without knowledge retrieval
@@ -2359,8 +2499,12 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         Returns:
             dict[str, Any]: Same complete response format as aquery_llm.
         """
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(self.aquery_llm(query, param, system_prompt))
+        return _run_sync(
+            lambda: self.aquery_llm(query, param, system_prompt),
+            sync_name="query_llm",
+            async_name="aquery_llm",
+            owning_loop=self._owning_loop,
+        )
 
     async def _query_done(self):
         await self.llm_response_cache.index_done_callback()
@@ -2464,7 +2608,12 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
 
     def clear_cache(self) -> None:
         """Synchronous version of aclear_cache."""
-        return always_get_an_event_loop().run_until_complete(self.aclear_cache())
+        return _run_sync(
+            lambda: self.aclear_cache(),
+            sync_name="clear_cache",
+            async_name="aclear_cache",
+            owning_loop=self._owning_loop,
+        )
 
     async def get_docs_by_status(
         self, status: DocStatus
@@ -2543,7 +2692,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     async def _purge_doc_chunks_and_kg(
         self,
         doc_id: str,
-        chunk_ids: set[str],
+        chunk_ids: list[str],
         *,
         pipeline_status: dict,
         pipeline_status_lock: Any,
@@ -2594,6 +2743,10 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         """
         if not chunk_ids:
             return
+
+        # Set view for membership/intersection checks below (chunk_ids stays a list
+        # so it satisfies the storage delete contract: ``delete(ids: list[str])``).
+        chunk_ids_set = set(chunk_ids)
 
         # ---- 1. Analyze affected entities/relations from full_entities/full_relations ----
         entities_to_delete: set[str] = set()
@@ -2680,7 +2833,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
 
                 remaining_sources = subtract_source_ids(existing_sources, chunk_ids)
                 graph_references_deleted_chunks = bool(
-                    graph_sources and set(graph_sources) & chunk_ids
+                    graph_sources and set(graph_sources) & chunk_ids_set
                 )
 
                 if not remaining_sources:
@@ -2744,7 +2897,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
 
                 remaining_sources = subtract_source_ids(existing_sources, chunk_ids)
                 graph_references_deleted_chunks = bool(
-                    graph_sources and set(graph_sources) & chunk_ids
+                    graph_sources and set(graph_sources) & chunk_ids_set
                 )
 
                 if not remaining_sources:
@@ -3120,12 +3273,18 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                 metadata.get("deletion_llm_cache_ids", []),
                 context=f"doc {doc_id} metadata.deletion_llm_cache_ids",
             )
-            chunk_ids = set(
-                normalize_string_list(
-                    doc_status_data.get("chunks_list", []),
-                    context=f"doc {doc_id} chunks_list",
+            # Order-preserving dedup so chunk_ids stays a list and satisfies the
+            # storage delete contract (``delete(ids: list[str])``); a set view is
+            # built below for membership/intersection checks.
+            chunk_ids = list(
+                dict.fromkeys(
+                    normalize_string_list(
+                        doc_status_data.get("chunks_list", []),
+                        context=f"doc {doc_id} chunks_list",
+                    )
                 )
             )
+            chunk_ids_set = set(chunk_ids)
 
             if not chunk_ids:
                 logger.warning(f"No chunks found for document {doc_id}")
@@ -3215,9 +3374,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                     )
                 else:
                     try:
-                        chunk_data_list = await self.text_chunks.get_by_ids(
-                            list(chunk_ids)
-                        )
+                        chunk_data_list = await self.text_chunks.get_by_ids(chunk_ids)
                         seen_cache_ids: set[str] = set(doc_llm_cache_ids)
                         for chunk_data in chunk_data_list:
                             if not chunk_data or not isinstance(chunk_data, dict):
@@ -3379,7 +3536,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                     # rebuild/delete so the graph metadata gets synchronized instead of being
                     # left untouched with orphaned source references.
                     graph_references_deleted_chunks = bool(
-                        graph_sources and set(graph_sources) & chunk_ids
+                        graph_sources and set(graph_sources) & chunk_ids_set
                     )
 
                     if not remaining_sources:
@@ -3454,7 +3611,7 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                     # chunk deleted in this attempt. Treat that as an affected relation so retry
                     # deletion can repair the graph metadata rather than skipping it as "untouched".
                     graph_references_deleted_chunks = bool(
-                        graph_sources and set(graph_sources) & chunk_ids
+                        graph_sources and set(graph_sources) & chunk_ids_set
                     )
 
                     if not remaining_sources:
@@ -3899,8 +4056,12 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         Returns:
             DeletionResult: An object containing the outcome of the deletion process.
         """
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(self.adelete_by_entity(entity_name))
+        return _run_sync(
+            lambda: self.adelete_by_entity(entity_name),
+            sync_name="delete_by_entity",
+            async_name="adelete_by_entity",
+            owning_loop=self._owning_loop,
+        )
 
     async def adelete_by_relation(
         self, source_entity: str, target_entity: str
@@ -3935,9 +4096,11 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         Returns:
             DeletionResult: An object containing the outcome of the deletion process.
         """
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(
-            self.adelete_by_relation(source_entity, target_entity)
+        return _run_sync(
+            lambda: self.adelete_by_relation(source_entity, target_entity),
+            sync_name="delete_by_relation",
+            async_name="adelete_by_relation",
+            owning_loop=self._owning_loop,
         )
 
     async def get_processing_status(self) -> dict[str, int]:
@@ -3964,7 +4127,24 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     async def get_entity_info(
         self, entity_name: str, include_vector_data: bool = False
     ) -> dict[str, str | None | dict[str, str]]:
-        """Get detailed information of an entity"""
+        """Get detailed information of an entity.
+
+        Args:
+            entity_name: Name of the entity to look up.
+            include_vector_data: DEPRECATED. Attaches a ``vector_data`` field
+                read from the entity vector store. The vector store no longer
+                returns the embedding, so this payload is derived from the
+                graph node (the authoritative source) and duplicates
+                ``graph_data``; the only signal it adds is whether a VDB record
+                exists at all. No LightRAG code path sets this — it is kept for
+                backward compatibility only and may be removed in a future
+                release. For graph/VDB consistency, use the offline
+                ``lightrag-rebuild-vdb`` check instead.
+
+        Returns:
+            ``{"entity_name", "source_id", "graph_data"}`` (plus a redundant
+            ``"vector_data"`` when ``include_vector_data`` is True).
+        """
         from lightrag.utils_graph import get_entity_info
 
         return await get_entity_info(
@@ -3977,7 +4157,25 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     async def get_relation_info(
         self, src_entity: str, tgt_entity: str, include_vector_data: bool = False
     ) -> dict[str, str | None | dict[str, str]]:
-        """Get detailed information of a relationship"""
+        """Get detailed information of a relationship.
+
+        Args:
+            src_entity: Source entity name.
+            tgt_entity: Target entity name.
+            include_vector_data: DEPRECATED. Attaches a ``vector_data`` field
+                read from the relationship vector store. The vector store no
+                longer returns the embedding, so this payload is derived from
+                the graph edge (the authoritative source) and duplicates
+                ``graph_data``; the only signal it adds is whether a VDB record
+                exists at all. No LightRAG code path sets this — it is kept for
+                backward compatibility only and may be removed in a future
+                release. For graph/VDB consistency, use the offline
+                ``lightrag-rebuild-vdb`` check instead.
+
+        Returns:
+            ``{"src_entity", "tgt_entity", "source_id", "graph_data"}`` (plus a
+            redundant ``"vector_data"`` when ``include_vector_data`` is True).
+        """
         from lightrag.utils_graph import get_relation_info
 
         return await get_relation_info(
@@ -4030,9 +4228,13 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         allow_rename: bool = True,
         allow_merge: bool = False,
     ) -> dict[str, Any]:
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(
-            self.aedit_entity(entity_name, updated_data, allow_rename, allow_merge)
+        return _run_sync(
+            lambda: self.aedit_entity(
+                entity_name, updated_data, allow_rename, allow_merge
+            ),
+            sync_name="edit_entity",
+            async_name="aedit_entity",
+            owning_loop=self._owning_loop,
         )
 
     async def aedit_relation(
@@ -4066,9 +4268,11 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     def edit_relation(
         self, source_entity: str, target_entity: str, updated_data: dict[str, Any]
     ) -> dict[str, Any]:
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(
-            self.aedit_relation(source_entity, target_entity, updated_data)
+        return _run_sync(
+            lambda: self.aedit_relation(source_entity, target_entity, updated_data),
+            sync_name="edit_relation",
+            async_name="aedit_relation",
+            owning_loop=self._owning_loop,
         )
 
     async def acreate_entity(
@@ -4098,8 +4302,12 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     def create_entity(
         self, entity_name: str, entity_data: dict[str, Any]
     ) -> dict[str, Any]:
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(self.acreate_entity(entity_name, entity_data))
+        return _run_sync(
+            lambda: self.acreate_entity(entity_name, entity_data),
+            sync_name="create_entity",
+            async_name="acreate_entity",
+            owning_loop=self._owning_loop,
+        )
 
     async def acreate_relation(
         self, source_entity: str, target_entity: str, relation_data: dict[str, Any]
@@ -4130,9 +4338,11 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
     def create_relation(
         self, source_entity: str, target_entity: str, relation_data: dict[str, Any]
     ) -> dict[str, Any]:
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(
-            self.acreate_relation(source_entity, target_entity, relation_data)
+        return _run_sync(
+            lambda: self.acreate_relation(source_entity, target_entity, relation_data),
+            sync_name="create_relation",
+            async_name="acreate_relation",
+            owning_loop=self._owning_loop,
         )
 
     async def amerge_entities(
@@ -4183,11 +4393,13 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
         merge_strategy: dict[str, str] = None,
         target_entity_data: dict[str, Any] = None,
     ) -> dict[str, Any]:
-        loop = always_get_an_event_loop()
-        return loop.run_until_complete(
-            self.amerge_entities(
+        return _run_sync(
+            lambda: self.amerge_entities(
                 source_entities, target_entity, merge_strategy, target_entity_data
-            )
+            ),
+            sync_name="merge_entities",
+            async_name="amerge_entities",
+            owning_loop=self._owning_loop,
         )
 
     async def aexport_data(
@@ -4237,14 +4449,11 @@ class LightRAG(_RoleLLMMixin, _StorageMigrationMixin, _PipelineMixin):
                 - table: Print formatted tables to console
             include_vector_data: Whether to include data from the vector database.
         """
-        try:
-            loop = asyncio.get_event_loop()
-        except RuntimeError:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-
-        loop.run_until_complete(
-            self.aexport_data(output_path, file_format, include_vector_data)
+        _run_sync(
+            lambda: self.aexport_data(output_path, file_format, include_vector_data),
+            sync_name="export_data",
+            async_name="aexport_data",
+            owning_loop=self._owning_loop,
         )
 
 

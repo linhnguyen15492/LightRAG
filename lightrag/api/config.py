@@ -287,7 +287,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--max-async",
         type=int,
-        default=get_env_value("MAX_ASYNC", DEFAULT_MAX_ASYNC, int),
+        default=get_env_value(
+            "MAX_ASYNC_LLM", get_env_value("MAX_ASYNC", DEFAULT_MAX_ASYNC, int), int
+        ),
         help=f"Maximum async operations (default: from env or {DEFAULT_MAX_ASYNC})",
     )
     parser.add_argument(
@@ -543,13 +545,11 @@ def parse_args() -> argparse.Namespace:
     args.chunk_overlap_size = get_env_value("CHUNK_OVERLAP_SIZE", 100, int)
 
     # Inject LLM cache configuration
+    # Should not be disabled； LLM cache is required for entity/realtion rebuild after file deletion.
     args.enable_llm_cache_for_extract = get_env_value(
         "ENABLE_LLM_CACHE_FOR_EXTRACT", True, bool
     )
     args.enable_llm_cache = get_env_value("ENABLE_LLM_CACHE", True, bool)
-
-    # PDF decryption password
-    args.pdf_decrypt_password = get_env_value("PDF_DECRYPT_PASSWORD", None)
 
     # --- Per-role LLM configuration (driven by lightrag.ROLES registry) ---
     for spec in ROLES:
@@ -669,7 +669,7 @@ def parse_args() -> argparse.Namespace:
     )
 
     # Rerank async/timeout configuration (independent from base LLM)
-    # rerank_max_async falls back to MAX_ASYNC; rerank_timeout has its own default.
+    # rerank_max_async falls back to MAX_ASYNC_LLM; rerank_timeout has its own default.
     args.rerank_max_async = get_env_value("MAX_ASYNC_RERANK", args.max_async, int)
     args.rerank_timeout = get_env_value("RERANK_TIMEOUT", DEFAULT_RERANK_TIMEOUT, int)
 
